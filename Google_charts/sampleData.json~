@@ -1,0 +1,14 @@
+{
+  "cols": [
+        {"id":"","label":"Topping","pattern":"","type":"string"},
+        {"id":"","label":"Progression infection","pattern":"","type":"number"},
+	{"id":"","label":"Progression vaccin","pattern":"","type":"number"}
+      ],
+  "rows": [
+        {"c":[{"v":"T0","f":null},{"v":3,"f":null},{"v":3,"f":null}]},
+        {"c":[{"v":"T1","f":null},{"v":1,"f":null},{"v":3,"f":null}]},
+        {"c":[{"v":"T2","f":null},{"v":1,"f":null},{"v":3,"f":null}]},
+        {"c":[{"v":"T3","f":null},{"v":1,"f":null},{"v":3,"f":null}]},
+        {"c":[{"v":"T4","f":null},{"v":2,"f":null},{"v":3,"f":null}]}
+      ]
+}

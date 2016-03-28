@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+  <head>
+  <style>
+  
+  blockquote.twitter-tweet {
+  display: inline-block;
+  font-family: "Helvetica Neue", Roboto, "Segoe UI", Calibri, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 16px;
+  border-color: #eee #ddd #bbb;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  margin: 10px 5px;
+  padding: 0 16px 16px 16px;
+  max-width: 468px;
+}
+ 
+blockquote.twitter-tweet p {
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 20px;
+}
+ 
+blockquote.twitter-tweet a {
+  color: inherit;
+  font-weight: normal;
+  text-decoration: none;
+  outline: 0 none;
+}
+ 
+blockquote.twitter-tweet a:hover,
+blockquote.twitter-tweet a:focus {
+  text-decoration: underline;
+}
+  </style>
+ 
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+    
+    // Load the Visualization API and the piechart package.
+    google.charts.load('current', {'packages':['corechart']});
+      
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.charts.setOnLoadCallback(drawChart);
+    
+    function drawChart() {
+      var jsonData = $.ajax({
+          url: "getData.php",
+          dataType: "json",
+          async: false
+          }).responseText;
+          
+      // Create our data table out of JSON data loaded from server.
+      var data = new google.visualization.DataTable(jsonData);
+
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+      chart.draw(data, {width: 600, height: 340,legend: {position: 'top', maxLines: 3}, vAxis: {format:'#%'}});
+    }
+    
+    
+    google.charts.setOnLoadCallback(drawRegionsMap);
+
+      function drawRegionsMap() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Country', 'Popularity'],
+          ['Germany', 100],
+          ['United States', 50],
+          ['Brazil', 30],
+          ['Canada', 100],
+          ['France', 100],
+          ['RU', 70]
+        ]);
+
+        var options = {};
+
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+        chart.draw(data, options);
+      }
+    
+
+    </script>
+  </head>
+
+  <body>
+    <!--Div that will hold the pie chart-->
+    <div style="float:left;">
+    <div id="chart_div"></div>
+    <div id="regions_div" style="width: 600px; height: 500px;"></div>
+    
+     </div>
+    <a class="twitter-timeline"  href="https://twitter.com/OfficielCIUB" data-widget-id="714452519829811200">Tweets de @OfficielCIUB</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                
+    
+  </body>
+</html>
