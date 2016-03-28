@@ -3,7 +3,7 @@
 -- Table structure for table `a28_counter`
 --
 
-CREATE TABLE IF NOT EXISTS `a28_counter` (
+CREATE TABLE IF NOT EXISTS `a28_counters` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `counter_ref_id` int(11) NOT NULL,
   `event_on` datetime NOT NULL,
