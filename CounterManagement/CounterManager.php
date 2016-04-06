@@ -1,4 +1,5 @@
 <?php
+require_once '../dbAccess.php';
 /**
  * Classe gérant les compteurs d'intervention des PJ sur le jeu
  */
@@ -6,7 +7,6 @@ class CounterManager
 {
 	public function __construct()
 	{
-		
 	}
 	
 	/**
@@ -31,9 +31,12 @@ class CounterManager
 	 * @param $value : float
 	 * @return none
 	 */
-	public function updateCounter($counter_id, $value)
+	public function updateCounter($counter_ref_id, $value)
 	{
 		$now = new DateTime();
+		$now = $now->format("Y-m-d H:m:s");
+		
+		
 		$rq = "insert into a28_counters (counter_ref_id, event_on, value) " .
 				"VALUES ($counter_ref_id, '".$now."','".$value."' )";
 		$db = new dbAccess();
@@ -89,6 +92,8 @@ class CounterManager
 	 {
 	 	
 	 }
-
-	 
+ 
 }
+
+$truc = new CounterManager();
+$truc->updateCounter(1,5);

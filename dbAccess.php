@@ -1,5 +1,6 @@
 <?php
 require_once "dbConfig.php";
+
 class dbAccess
 {
 	private $db;
@@ -24,7 +25,7 @@ class dbAccess
 		$mysqli = new mysqli($this->host, $this->login, $this->password, $this->db);
 		if ($mysqli->connect_error) {
     		die('Erreur de connexion (' . $mysqli->connect_errno . ') '
-            . $mysqli->connect_error);
+            . $mysqli->connect_error);}
 		return $mysqli;
 	}
 	
@@ -33,6 +34,7 @@ class dbAccess
 	 * @param $rq string
 	 * @return $ret : mysqli object
 	 */
+	 
 	public function query($rq)
 	{
 		$mysqli = $this->connect();
