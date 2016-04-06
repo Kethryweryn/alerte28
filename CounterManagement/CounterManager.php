@@ -184,8 +184,6 @@ class CounterManager
 	 
  
 }
-$counter_manager = new CounterManager();
-$counter_manager->generateDiseaseCurves();
 
 
 
