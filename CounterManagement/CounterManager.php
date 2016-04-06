@@ -176,7 +176,6 @@ class CounterManager
 		$stream .= '
       ]
 }';
-// TODO virer le chemin absolu... 
 		$fp = fopen("../Google_charts/sampleData.json","w");
 		fwrite($fp, $stream);
 		fclose($fp);
