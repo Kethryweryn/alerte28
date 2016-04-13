@@ -69,25 +69,29 @@ blockquote.twitter-tweet a:focus {
     
     google.charts.setOnLoadCallback(drawRegionsMap);
 
+      
+        
+    
       function drawRegionsMap() {
 
-        var data = google.visualization.arrayToDataTable([
-          ['Country', 'Popularity'],
-          ['Germany', 100],
-          ['United States', 50],
-          ['Brazil', 30],
-          ['Canada', 100],
-          ['France', 100],
-          ['RU', 70]
-        ]);
-
-        var options = {};
-
+      var dimension = "Infection";
+      $.ajax({
+        url: "getGeoData.php",
+        dataType: "JSON"
+      }).done(function(data) {
+              var statesArray = [["State",dimension]];
+              $.each(data.states, function() {
+                  var stateitem = [this.abbrev, this[dimension]];
+                  statesArray.push(stateitem);
+              });
+        var statesData = google.visualization.arrayToDataTable(statesArray);
         var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+        chart.draw(statesData, options);
+        var options = {colors: ['#00FF00','#0000FF']};
 
-        chart.draw(data, options);
-      }
-    
+        $("h3").append(" Sorted by  "+dimension);
+      });
+}
 
     </script>
   </head>

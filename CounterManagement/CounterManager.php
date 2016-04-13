@@ -75,17 +75,22 @@ class CounterManager
 	 public function getCureProgress()
 	 {
 	 	$cure_array = array();
+	 	$db = new dbAccess();
+	 	 
 	 	// first, we get the specific counters...
-	 	$game_start = "2016-04-06 19:00:00";
-	 	// TODO virer la donnée de base. A des fins de test, on va partir d'un horaire de base à 20 h
-	 	$cure_array = $this->getCurveSpots('2016-01-01 00:00:00', '2016-01-01 12:00:00', 'pow', 1);
+	 	
+	 	$rq = "select event_value from a28_params where event_name = 'start_date'";
+	 	$game_start = $db->select($rq);
+	 	$game_start = $game_start[0]->event_value;
+		$now = new DateTime();
+		$now = $now->format("Y-m-d H:m:s");
+		$cure_array = $this->getCurveSpots($game_start, $now, 'pow', 1);
 	 	foreach($cure_array as $key=>$cure)
 	 	{
 	 		$cure_array[$key] = $cure * 0.005;
 	 		
 	 	}
 	 	$counter_ref = $this->getRefCounter('CURE');
-	 	$db = new dbAccess();
 	 	$rq = "select value, event_on from a28_counters where counter_ref_id = $counter_ref";
 	 	$counters = $db->select($rq);
 	 	$counters_array = array();
@@ -109,10 +114,16 @@ class CounterManager
 	 public function getPandemiaProgress()
 	 {
 	 	$pandemia_array = array();
+	 	$db = new dbAccess();
+	 	 
 	 	// first, we get the specific counters...
-	 	$game_start = "2016-04-06 19:00:00";
-	 	// TODO virer la donnée de base. A des fins de test, on va partir d'un horaire de base à 20 h
-	 	$pandemia_array = $this->getCurveSpots('2016-01-01 00:00:00', '2016-01-01 12:00:00', 'pow', 2);
+	 	$rq = "select event_value from a28_params where event_name = 'start_date'";
+	 	$game_start = $db->select($rq);
+	 	$game_start = $game_start[0]->event_value;
+	 	$now = new DateTime();
+		$now = $now->format("Y-m-d H:m:s");
+		
+	 	$pandemia_array = $this->getCurveSpots($game_start, $now, 'pow', 2);
 	 	foreach($pandemia_array as $key=>$cure)
 	 	{
 	 		$pandemia_array[$key] = $cure * 0.000195;
@@ -140,6 +151,7 @@ class CounterManager
 	 public function getGeographicProgress()
 	 {
 	 	$geographic_array = array();
+	 	
 	 	return $geographic_array;
 	 }
 	 
@@ -182,5 +194,50 @@ class CounterManager
 	 	
 	 }
 	 
- 
+	 
+	 public function generateGeoCurves()
+	 {
+	 	$db = new dbAccess();
+	 	 
+	 	// first we deploy the disease around the world. 
+	 	$rq = "select event_value from a28_params where event_name = 'start_date'";
+	 	$game_start = $db->select($rq);
+	 	$game_start = $game_start[0]->event_value;
+	 	$now = new DateTime();
+	 	$now = $now->format("Y-m-d H:m:s");
+	 	
+	 	$sec_diff = strtotime($now) - strtotime($game_start);
+	 	$spots_number = floor($sec_diff / 600)*4;
+	 	
+	 	$rq = "select count(0) as val from a28_country_list where infected = 1";
+	 	$res = $db->select($rq);
+	 	$add_infection = $spots_number - $res[0]->val;
+	 	if($add_infection>0)
+	 	{
+	 		$rq = "update a28_country_list set infected = 1 where infected = 0 order by RAND() limit $add_infection";
+	 		
+	 		$db->query($rq);
+	 	}
+	 	// then, we get the information
+	 	$rq = "select code,infected from a28_country_list ";
+	 	
+	 	$geos = $db->select($rq);
+	 	$stream = '{ "states":
+[';
+	 	foreach($geos as $key=>$geo)
+	 	{
+	 		$array_stream[] = '{"abbrev":"'.$geo->code.'", "Infection":'.$geo->infected.'}';
+	 	}
+	 
+	 	$stream .= implode(",\n", $array_stream);
+	 	$stream .= '
+      ]
+}';
+	 	$fp = fopen("../Google_charts/sampleGeoData.json","w");
+	 	fwrite($fp, $stream);
+	 	fclose($fp);
+	 	 
+	 }
+	 
 }
+
