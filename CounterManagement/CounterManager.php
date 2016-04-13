@@ -23,7 +23,7 @@ class CounterManager
 		{
 			return $obj->id;
 		}
-	}
+	} 
 	
 	/**
 	 * Met à jour le compteur en fonction de l'heure à laquelle a été passé l'appel à cette méthode
