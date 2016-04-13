@@ -15,6 +15,7 @@ while ( 1 ) {
 	// Puis on gère ces événements
 	foreach ( $event_manager->getNewEvents () as $event ) {
 		$event_solver->solve ( $event );
+		$event_manager->deleteEvent ( $event );
 	}
 	
 	sleep ( 1 );
