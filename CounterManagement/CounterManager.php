@@ -140,6 +140,38 @@ class CounterManager
 	 public function getStockExchangeProgress()
 	 {
 	 	$stockExchange_array = array();
+	 	$db = new dbAccess();
+	 	
+	 	// first, we get the specific counters...
+	 	 
+	 	$rq = "select event_value from a28_params where event_name = 'start_date'";
+	 	$game_start = $db->select($rq);
+	 	$game_start = $game_start[0]->event_value;
+	 	$now = new DateTime();
+	 	$now = $now->format("Y-m-d H:m:s");
+	 	$stockExchange_array = $this->getCurveSpots($game_start, $now, 'pow', 0);
+	 	foreach($stockExchange_array as $key=>$cure)
+	 	{
+	 		if($key == 0)
+	 			$stockExchange_array[$key] = 0;
+	 		else
+	 			$stockExchange_array[$key] = 100 + $cure * rand(-5, 5);
+	 	
+	 	}
+	 	$counter_ref = $this->getRefCounter('STOCK_MARKET');
+	 	$rq = "select value, event_on from a28_counters where counter_ref_id = $counter_ref";
+	 	$counters = $db->select($rq);
+	 	$counters_array = array();
+	 	foreach($counters as $counter)
+	 	{
+	 		$add_level = floor((strtotime($counter->event_on) - strtotime($game_start))/600);
+	 		for($j = $add_level;$j<count($stockExchange_array);$j++)
+	 		{
+	 			$stockExchange_array[$j] += $counter->value;
+	 		}
+	 	}
+	 	 
+	 	
 	 	return $stockExchange_array;
 	 }
 
@@ -237,6 +269,31 @@ class CounterManager
 	 	fwrite($fp, $stream);
 	 	fclose($fp);
 	 	 
+	 }
+	 
+	 
+	 
+	 function generateStockCurves()
+	 {
+	 	// we generate here a random curve around the first value (100$) for the stock exchange of +-3%. 
+	 	$array = $this->getStockExchangeProgress();
+	 	$glob_array = array();
+	 	$glob_array['cols'][] = array('type' => 'string');
+	 	$glob_array['cols'][] = array('type' => 'number');
+	 	$stream = '{"cols":[{"type":"string"},{"type":"number"}],"rows":[';
+	 	$array_stream = array();
+	 	 
+	 	foreach($array as $key=>$stock_level)
+	 	{
+	 		$array_stream[] = '{"c":[{"v":"T'.$key.'","f":null},{"v":'.$stock_level.',"f":null}]}';
+	 	}
+	 	$stream .= implode(",\n", $array_stream);
+	 	$stream .= '
+      ]
+}';
+	 	$fp = fopen("../Google_charts/sampleStockData.json","w");
+	 	fwrite($fp, $stream);
+	 	fclose($fp);
 	 }
 	 
 }

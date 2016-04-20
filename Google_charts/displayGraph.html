@@ -46,7 +46,7 @@ blockquote.twitter-tweet a:focus {
     <script type="text/javascript">
     
     // Load the Visualization API and the piechart package.
-    google.charts.load('current', {'packages':['corechart']});
+    google.charts.load('current', {'packages':['corechart', 'line']});
       
     // Set a callback to run when the Google Visualization API is loaded.
     google.charts.setOnLoadCallback(drawChart);
@@ -92,6 +92,35 @@ blockquote.twitter-tweet a:focus {
         $("h3").append(" Sorted by  "+dimension);
       });
 }
+      
+      google.charts.setOnLoadCallback(drawStockChart);
+
+      function drawStockChart() {
+
+          var jsonData = $.ajax({
+        	  url: "getStockData.php",
+              dataType: "json",
+              async: false}).responseText;
+          var data = new google.visualization.DataTable(jsonData);
+
+
+          var options = {
+            chart: {
+              title: 'Cours du CIUB'
+              },
+            width: 600,
+            height: 500,
+            axes: {
+              x: {
+                0: {side: 'top'}
+              }
+            }
+          };
+
+          var chart = new google.charts.Line(document.getElementById('stock_div'));
+
+          chart.draw(data, options);
+        }
 
     </script>
   </head>
@@ -99,9 +128,10 @@ blockquote.twitter-tweet a:focus {
   <body>
     <!--Div that will hold the pie chart-->
     <div style="float:left;">
+    <div id="stock_div" style="width: 600px; height: 500px; border:1px;"></div>
     <div id="chart_div"></div>
     <div id="regions_div" style="width: 600px; height: 500px;"></div>
-    
+     
      </div>
     <a class="twitter-timeline"  href="https://twitter.com/OfficielCIUB" data-widget-id="714452519829811200">Tweets de @OfficielCIUB</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>

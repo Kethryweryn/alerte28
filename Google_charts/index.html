@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard Starter UI, by Keen IO</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+  <link rel="stylesheet" type="text/css" href="../template/assets/lib/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../template/assets/css/keen-dashboards.css" />
+<style>
+  
+  blockquote.twitter-tweet {
+  display: inline-block;
+  font-family: "Helvetica Neue", Roboto, "Segoe UI", Calibri, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 16px;
+  border-color: #eee #ddd #bbb;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  margin: 10px 5px;
+  padding: 0 16px 16px 16px;
+  max-width: 468px;
+}
+ 
+blockquote.twitter-tweet p {
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 20px;
+}
+ 
+blockquote.twitter-tweet a {
+  color: inherit;
+  font-weight: normal;
+  text-decoration: none;
+  outline: 0 none;
+}
+ 
+blockquote.twitter-tweet a:hover,
+blockquote.twitter-tweet a:focus {
+  text-decoration: underline;
+}
+  </style>
+ 
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+    
+    // Load the Visualization API and the piechart package.
+    google.charts.load('current', {'packages':['corechart', 'line']});
+      
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.charts.setOnLoadCallback(drawChart);
+    
+    function drawChart() {
+      var jsonData = $.ajax({
+          url: "getData.php",
+          dataType: "json",
+          async: false
+          }).responseText;
+          
+      // Create our data table out of JSON data loaded from server.
+      var data = new google.visualization.DataTable(jsonData);
+
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+      chart.draw(data, {width: 500, height: 340,legend: {position: 'top', maxLines: 3}, vAxis: {format:'#%'}});
+    }
+    
+    
+    google.charts.setOnLoadCallback(drawRegionsMap);
+
+      
+        
+    
+      function drawRegionsMap() {
+
+      var dimension = "Infection";
+      $.ajax({
+        url: "getGeoData.php",
+        dataType: "JSON"
+      }).done(function(data) {
+              var statesArray = [["State",dimension]];
+              $.each(data.states, function() {
+                  var stateitem = [this.abbrev, this[dimension]];
+                  statesArray.push(stateitem);
+              });
+        var statesData = google.visualization.arrayToDataTable(statesArray);
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+        chart.draw(statesData, options);
+        var options = {colors: ['#00FF00','#0000FF']};
+
+        $("h3").append(" Sorted by  "+dimension);
+      });
+}
+      
+      google.charts.setOnLoadCallback(drawStockChart);
+
+      function drawStockChart() {
+
+          var jsonData = $.ajax({
+        	  url: "getStockData.php",
+              dataType: "json",
+              async: false}).responseText;
+          var data = new google.visualization.DataTable(jsonData);
+
+
+          var options = {
+            chart: {
+              title: 'Cours du CIUB'
+              },
+            width: 600,
+            height: 500,
+            axes: {
+              x: {
+                0: {side: 'top'}
+              }
+            }
+          };
+
+          var stockchart = new google.charts.Line(document.getElementById('stock_div'));
+
+          stockchart.draw(data, options);
+        }
+
+    </script>
+
+</head>
+<body class="application">
+
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="navbar-brand" href="./">Suivi CIUB</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-left">
+          <li><a href="index.html">Home</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+<div class="col-sm-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Fil Twitter
+          </div>
+          <div class="chart-stage">
+            <div id="chart-05"><a class="twitter-timeline"  href="https://twitter.com/OfficielCIUB" data-widget-id="714452519829811200">Tweets de @OfficielCIUB</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-sm-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cours de la bourse
+          </div>
+          <div class="chart-stage">
+            <div id="chart-01">
+            <div id="stock_div" style="width: 300px; height: 300px; "></div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+      <div class="col-sm-5">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Vaccin vs infection
+          </div>
+          <div class="chart-stage">
+            <div id="chart-02"><div id="chart_div"></div></div>
+          </div>
+          
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="row">
+
+      <div class="col-sm-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Diffusion mondiale
+          </div>
+          <div class="chart-stage">
+            <div id="chart-03"><div id="regions_div" style="width: 400px; height: 300px;"></div></div>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+
+    </div>
+
+   
+    <hr>
+
+    
+  </div>
+
+  <script type="text/javascript" src="../template/assets/lib/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="../template/assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="../template/assets/lib/holderjs/holder.js"></script>
+  <script>
+    Holder.add_theme("white", { background:"#fff", foreground:"#a7a7a7", size:10 });
+  </script>
+
+  <script type="text/javascript" src="../template/assets/lib/keen-js/dist/keen.min.js"></script>
+  <script type="text/javascript" src="../template/assets/js/meta.js"></script>
+
+</body>
+</html>

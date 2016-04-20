@@ -340,7 +340,7 @@ ALTER TABLE `a28_country_list`
 ALTER TABLE `a28_country_list` ADD `infected` INT NOT NULL DEFAULT '0' AFTER `code`;
   
   
-  
+CREATE TABLE `CIUB_Interface`.`a28_stock_exchange` ( `id` INT NOT NULL AUTO_INCREMENT , `stock_on` DATETIME NOT NULL , `stock_value` FLOAT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;  
   
   
   
