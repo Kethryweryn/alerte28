@@ -8,16 +8,16 @@ class eventManager {
 	public function getNewEvents()
 	{
 		// On récupère les événements en bdd
-		$res = $db->basic_select("SELECT * from events");
+		$res = $db->basic_select("SELECT * from a28_user_action");
 
-		$events = array();
+		$user_actions = array();
 
-		while($event_db = $res->fetch_object())
+		while($user_action_db = $res->fetch_object())
 		{
-			$event = new Event();
-			$events[] = $event;
+			$user_action = new UserAction();
+			$user_actions[] = $user_action;
 		}
 
-		return $events;
+		return $user_actions;
 	}
 }
