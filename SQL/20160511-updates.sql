@@ -1,1 +1,2 @@
 ALTER TABLE `a28_task` ADD `enabled` BOOLEAN NOT NULL DEFAULT FALSE AFTER `successor`;
+
