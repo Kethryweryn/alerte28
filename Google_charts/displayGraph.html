@@ -3,6 +3,10 @@
 
 <html>
   <head>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+  <link rel="stylesheet" type="text/css" href="../template/assets/lib/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../template/assets/css/keen-dashboards.css" />
+  
   <style>
   
   blockquote.twitter-tweet {
@@ -125,17 +129,94 @@ blockquote.twitter-tweet a:focus {
     </script>
   </head>
 
-  <body>
+  <body class="application">
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="navbar-brand" href="./">Suivi CIUB</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-left">
+          <li><a href="index.html">Home</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
     <!--Div that will hold the pie chart-->
     <div style="float:left;">
-    <div id="stock_div" style="width: 600px; height: 500px; border:1px;"></div>
-    <div id="chart_div"></div>
-    <div id="regions_div" style="width: 600px; height: 500px;"></div>
-     
+      <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-sm-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cours de la bourse
+          </div>
+          <div class="chart-stage">
+            <div id="chart-01">
+            <div id="stock_div" style="width: 300px; height: 300px; "></div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+<div class="col-sm-5">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Vaccin vs infection
+          </div>
+          <div class="chart-stage">
+            <div id="chart-02"><div id="chart_div"></div></div>
+          </div>
+          
+        </div>
+      </div>
+      </div>
+      
+<div class="row">
+
+      <div class="col-sm-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Diffusion mondiale
+          </div>
+          <div class="chart-stage">
+            <div id="chart-03"><div id="regions_div" style="width: 400px; height: 300px;"></div></div>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+
+    </div>     
      </div>
-    <a class="twitter-timeline"  href="https://twitter.com/OfficielCIUB" data-widget-id="714452519829811200">Tweets de @OfficielCIUB</a>
+    <div class="col-sm-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Fil Twitter
+          </div>
+          <div class="chart-stage">
+            <div id="chart-05"><a class="twitter-timeline"  href="https://twitter.com/OfficielCIUB" data-widget-id="714452519829811200">Tweets de @OfficielCIUB</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-                
+            </div>
+          </div>
+          
+        </div>
+      </div>
+            
     
   </body>
 </html>
