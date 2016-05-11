@@ -5,7 +5,7 @@ class eventManager {
 		$this->$db = $db_access;
 	}
 	
-	public function getNewEvents()
+	public function getNewUserActions()
 	{
 		// On récupère les événements en bdd
 		$res = $db->basic_select("SELECT * from a28_user_action");

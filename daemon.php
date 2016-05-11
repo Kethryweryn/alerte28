@@ -13,14 +13,11 @@ $event_solver = new eventSolver ( $db_access );
 while ( 1 ) {
 	// Lecture en bdd voir si de nouveaux changements sont là
 	// Puis on gère ces événements
-	foreach ( $event_manager->getNewEvents () as $event ) {
-		try
-		{
+	foreach ( $event_manager->getNewUserActions () as $event ) {
+		try {
 			$event_solver->solve ( $event );
-		}
-		catch(Exception $e)
-		{
-			$event_solver->markAsError($event);
+		} catch ( Exception $e ) {
+			$event_solver->markAsError ( $event );
 		}
 		$event_manager->deleteEvent ( $event );
 	}
