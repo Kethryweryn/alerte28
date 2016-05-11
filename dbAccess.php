@@ -59,5 +59,10 @@ class dbAccess
 		}
 		return $array_ret;
 	}
+
+	public function basic_select($rq)
+	{
+		return $this->query($rq);
+	}
 }
 
