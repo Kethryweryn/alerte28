@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  mysql51-96.perso
--- Généré le :  Mer 11 Mai 2016 à 22:57
+-- Généré le :  Mer 11 Mai 2016 à 23:07
 -- Version du serveur :  5.5.46-0+deb7u1-log
 -- Version de PHP :  5.4.45-0+deb7u2
 
@@ -26,7 +26,6 @@ SET time_zone = "+00:00";
 -- Structure de la table `a28_user`
 --
 
-DROP TABLE IF EXISTS `a28_user`;
 CREATE TABLE IF NOT EXISTS `a28_user` (
   `id` int(10) unsigned NOT NULL,
   `nom` varchar(256) NOT NULL,
@@ -40,11 +39,16 @@ CREATE TABLE IF NOT EXISTS `a28_user` (
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
+-- Vider la table avant d'insérer `a28_user`
+--
+
+TRUNCATE TABLE `a28_user`;
+--
 -- Contenu de la table `a28_user`
 --
 
 INSERT INTO `a28_user` (`id`, `nom`, `prenom`, `log`, `pass`, `actif`, `service_id`, `leader`, `admin`) VALUES
-(1, 'Meurin', 'Frédéric', 'SuperAdmin', '$1$z.0kQmzC$oRz9BxDZx5NVKk0.HcpYH1', '1', 1, '1', '1');
+(1, 'Meurin', 'Frédéric', 'SuperAdmin', '$1$53.nr/x4$FlsSC2Av9ruIPXAfNRFEZ1', '1', 1, '1', '1');
 
 --
 -- Index pour les tables exportées
