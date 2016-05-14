@@ -34,8 +34,8 @@ INSERT INTO `a28_counters_ref` (`id`, `name`, `description`, `unique_name`) VALU
 (2, 'Communication', 'Niveau de la comm', 'COMM'),
 (NULL, 'Cure', 'Cure progress', 'CURE');
 
-CREATE TABLE `CIUB_Interface`.`a28_params` ( `id` INT NOT NULL AUTO_INCREMENT , `event_name` TEXT NOT NULL , `event_value` TEXT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
-INSERT INTO `CIUB_Interface`.`a28_params` (`id`, `event_name`, `event_value`) VALUES (NULL, 'start_date', '2016-04-13 21:00:00'); 
+CREATE TABLE `a28_params` ( `id` INT NOT NULL AUTO_INCREMENT , `event_name` TEXT NOT NULL , `event_value` TEXT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+INSERT INTO `a28_params` (`id`, `event_name`, `event_value`) VALUES (NULL, 'start_date', '2016-04-13 21:00:00'); 
 
 
 
@@ -322,25 +322,13 @@ INSERT INTO `a28_country_list` (`id`, `name`, `code`) VALUES
 --
 
 --
--- Index pour la table `a28_country_list`
---
-ALTER TABLE `a28_country_list`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT pour les tables exportées
 --
-
---
--- AUTO_INCREMENT pour la table `a28_country_list`
---
-ALTER TABLE `a28_country_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=249;
   
 ALTER TABLE `a28_country_list` ADD `infected` INT NOT NULL DEFAULT '0' AFTER `code`;
   
   
-CREATE TABLE `CIUB_Interface`.`a28_stock_exchange` ( `id` INT NOT NULL AUTO_INCREMENT , `stock_on` DATETIME NOT NULL , `stock_value` FLOAT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;  
+CREATE TABLE `a28_stock_exchange` ( `id` INT NOT NULL AUTO_INCREMENT , `stock_on` DATETIME NOT NULL , `stock_value` FLOAT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;  
   
   
   
