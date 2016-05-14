@@ -1,104 +1,80 @@
 <?php
 //interdiction d'ouverture directe du fichier !
-if('a28_user_inc.php'==$_SERVER['php_self']){
+if('a28_user_inc.php'==$_SERVER['PHP_SELF']){
 	header('location:index.php?e=6');
 }
 
-$oUsers=new requete('SELECT `id`, `nom`  FROM `a28_user`','Liste des Users');
+// Gestion de la création d'utilisateur
 
-$sNomUser="";
-$sPrenomUser="";
-$iServiceId="";
-$iIsLeader="";
-$sActionBouton="Ajouter";
-
-if(!empty($_GET['id'])){
-	$oUserEdit=new requete('SELECT `id`, `nom`, `prenom`, `idService`, `isLeader` FROM `a28_user` WHERE `id`="'.$_GET['id'].'"','user à modifier');
-
-	while($oUserDetail=mysql_fetch_object($oUserEdit->req)){
-		$idUser=$oUserDetail->id;
-		$sNomUser=$oUserDetail->nom;	
-		$sPrenomUser=$oUserDetail->prenom;
-		$iServiceId=$oUserDetail->idService;
-		$iIsLeader=$oUserDetail->isLeader;
-	}
+if(isset($_POST['create_user']))
+{
 	
-	$sActionBouton="Modifier";
+	$db = new dbAccess();
+	$mysqli = $db->connect();
+	$rq = "insert into a28_user (nom, prenom, log, pass, actif, service_id, leader, admin) 
+			VALUES ('".mysqli_real_escape_string($mysqli, $_POST['nom'])."',
+					'".mysqli_real_escape_string($mysqli, $_POST['prenom'])."',
+					'".mysqli_real_escape_string($mysqli, $_POST['login'])."',
+					'".a28crypt($mysqli, $_POST['password'])."',
+					'".mysqli_real_escape_string($mysqli, $_POST['active'])."',
+					'".mysqli_real_escape_string($mysqli, $_POST['service'])."',
+					'".mysqli_real_escape_string($mysqli, $_POST['manager'])."',
+					0)";
+	$mysqli->close();
+	$db->query($rq);
 }
 
-// liste des services
-$oServices=new requete('SELECT `id`, `nom`  FROM `a28_service`','Liste des Services');
 
 ?>
 
 <h1>Liste des utilisateurs</h1>
 
-<?php
-	$sTableau=$oUsers->liste_tableau($oUsers->req, 'a28_user', 'border="1"');
-	echo $sTableau;
+<script type="text/javascript">
+google.charts.load('current', {'packages':['table']});
+google.charts.setOnLoadCallback(drawTable);
+
+function drawTable() {
+  var data = new google.visualization.DataTable();
+  data.addColumn('number', 'id');
+  data.addColumn('string', 'Prénom');
+  data.addColumn('string', 'Nom');
+  data.addColumn('string', 'Service');
+  data.addColumn('string', 'Modifier');
+  data.addRows([
+<?php 
+// on ajoute tous les utilisateurs présents dans le système.
+$array_result = array();
+
+$db = new dbAccess();
+ 
+
+$rq ='SELECT a.id, a.nom, prenom, b.nom as nom_service
+		FROM `a28_user` a
+		join a28_service b on b.id = a.service_id
+
+		';
+$user_list = $db->select($rq);
+
+foreach($user_list as $user)
+{
+	$array_result[] = "[". $user->id.",'". utf8_encode($user->prenom)."','". $user->nom
+			."','" .$user->nom_service. "', '<a href=gestion.php?page=a28_user_add&uid=".$user->id."><img src=\'../img/wan_pencil.png\' height=25/></a>']";
+}
+echo implode(",", $array_result);
+
 ?>
-	<table border="1">
-		<tr>
-			<th>Nom</th>
-			<th>Pr&eacute;nom</th>
-			<th colspan="2">Service</th>
-		</tr>
-		<tr>
-			<td>Nom</td>
-			<td>Pr&eacute;nom</td>
-			<td>Service</td>
-			<td><a href="gestion.php?page=user&id="><img src="img/wan_pencil.png" style="vertical-align:middle; width:48px;" />Modifier</a></td>
-		</tr>
-		<tr>
-			<td>Nom</td>
-			<td>Pr&eacute;nom</td>
-			<td>Service</td>
-			<td><a href="gestion.php?page=user&id="><img src="img/wan_pencil.png" style="vertical-align:middle; width:48px;" />Modifier</a></td>
-		</tr>
-		<tr>
-			<td>Nom</td>
-			<td>Pr&eacute;nom</td>
-			<td>Service</td>
-			<td><a href="gestion.php?page=user&id="><img src="img/wan_pencil.png" style="vertical-align:middle; width:48px;" />Modifier</a></td>
-		</tr>
-</table>
-				
-				
-<form name="form" action="editUser.php" method="post">			
-	<table>
-		<tbody>
-			<tr>
-				<td class="title">
-					<label for="_username">Nom</label>
-				</td>
-				<td class="input">
-					<input name="_username" id="_username" size="40" autocapitalize="off" autocomplete="off" type="text" value="<?php echo($sNomService); ?>">
-					<input name="page" id="page" type="hidden" value="user" />
-				</td>
-				<td class="title">
-					<label for="_firstname">Pr&eacute;nom</label>
-				</td>
-				<td class="input">
-					<input name="_firstname" id="_firstname" size="40" autocapitalize="off" autocomplete="off" type="text" value="<?php echo($sNomService); ?>">
-				</td>
-				<td class="title">
-					<label for="_service">Service</label>
-				</td>
-				<td class="input">
-					<?php
-						echo($oServices->liste_option($oServices->req, '_service', 'Choisissez un service...', '', '', $iServiceId));
-					?>
-				</td>
-				<td class="title">
-					<label for="_leader">Chef ?</label>
-				</td>
-				<td class="input">
-					<input type="radio" id="_leader" value="1" <?php echo(preselect(1, $iIsLeader, '')); ?> /> Oui <br />
-					<input type="radio" id="_leader" value="0" <?php echo(preselect(0, $iIsLeader, '')); ?> /> Non
-					<input name="_idUser" id="_idUser" type="hidden" value="<?php echo($_GET['id']); ?>" />
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	<p class="formbuttons"><input class="button mainaction" value="<?php echo($sActionBouton); ?>" type="submit"></p>
-</form>	
+    
+  ]);
+
+  var table = new google.visualization.Table(document.getElementById('table_div'));
+
+  table.draw(data, { width: '100%',allowHtml: true});
+}
+
+</script>
+<div id="table_div"></div>
+
+
+	<p class="formbuttons">
+	<input class="button mainaction" value="Ajouter un utilisateur" type="submit" onclick="window.location='gestion.php?page=a28_user_add';"></p>
+	

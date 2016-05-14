@@ -9,7 +9,17 @@
  * by keeping credits to the original autors in the README file.
  * See http://creativecommons.org/licenses/by-sa/3.0/ for details.
  */
+.google-visualization-table-table th {
+	text-align: left !important;
+	color:#000;
 
+	}
+	
+	.google-visualization-table-table td {
+	text-align: left !important;
+	color:#000;
+
+	}
 body {
 	font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
 	font-size: 11px;
@@ -1241,6 +1251,11 @@ table.records-table {
 }
 
 
+label{
+	display:block;
+	width:150px;
+}
+
 /*** iFrames ***/
 
 #aboutframe {
@@ -1449,7 +1464,7 @@ ul.proplist li {
 
 #login-form input[type="text"],
 #login-form input[type="password"] {
-	width: 100%;
+	width: 150px;
 	border-color: #666;
 }
 

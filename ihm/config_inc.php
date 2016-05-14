@@ -1,6 +1,6 @@
 <?php
-$sDBHost = "mysql51-96.perso"; // your host
-$sDBUser = "tragosfm"; // your username
-$sDBPass = "jH1HruE3"; // your password
-$sDBName = "tragosfm"; // your database
+$sDBHost = "localhost"; // your host
+$sDBUser = "ciub"; // your username
+$sDBPass = "stroopoo"; // your password
+$sDBName = "CIUB_Interface"; // your database
 ?>

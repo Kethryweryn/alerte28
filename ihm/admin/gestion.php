@@ -2,10 +2,11 @@
 session_start();
 require_once('../config_inc.php');
 
-require_once('../classes_inc.php');
+//require_once('../classes_inc.php');
 
+require_once('../../dbAccess.php');
 //ouverture de connexion
-$db=new DB($sDBHost, $sDBUser, $sDBPass, $sDBName);
+//$db=new DB($sDBHost, $sDBUser, $sDBPass, $sDBName);
 
 //vérification de session
 if(1==$_SESSION['is_admin']){
@@ -27,7 +28,9 @@ echo('<?xml version="1.0"?>');
 		<meta name="viewport" content="" id="viewport">
 		<link rel="stylesheet" type="text/css" href="../login_fichiers/styles.css">
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-		
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
 	</head>
 
 	<body>
@@ -45,8 +48,10 @@ echo('<?xml version="1.0"?>');
 					</a>
 				</div>
 				<?php
-					displayError($_GET['e'], $_GET['page']);
-				
+					if(isset($_GET['e']))
+					{
+						displayError($_GET['e'], $_GET['page']);
+					}
 					$page='a28_accueil_inc.php';
 					
 					if(!empty($_GET['page']) && file_exists($_GET['page']).'_inc.php'){
