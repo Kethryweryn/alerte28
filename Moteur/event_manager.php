@@ -13,7 +13,7 @@ class eventManager {
 
 		while ($user_action_db = $res->fetch_object()) {
 			$user_action = new UserAction($user_action_db->id, $user_action_db->user_id,
-				$user_action_db->action_id, $user_action_db->task_id);
+				$user_action_db->action_id, $user_action_db->event_id);
 			$user_actions[] = $user_action;
 		}
 

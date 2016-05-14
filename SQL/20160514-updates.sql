@@ -30,9 +30,9 @@ CREATE TABLE IF NOT EXISTS `a28_engine_user_action` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `action_id` int(11) NOT NULL,
-  `task_id` int(11) NOT NULL,
+  `event_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`,`action_id`,`task_id`)
+  KEY `user_id` (`user_id`,`action_id`,`event_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
