@@ -38,7 +38,9 @@ CREATE TABLE IF NOT EXISTS `a28_user_action` (
   `action_id` int(11) NOT NULL,
   `event_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`,`action_id`,`event_id`)
+  KEY `user_id` (`user_id`),
+  KEY `action_id` (`action_id`),
+  KEY `event_id` (`event_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
