@@ -2,10 +2,10 @@
 session_start();
 require_once('config_inc.php');
 
-require_once('classes_inc.php');
+require_once('../dbAccess.php');
 
 //ouverture de connexion
-$db=new DB($sDBHost, $sDBUser, $sDBPass, $sDBName);
+//$db=new DB($sDBHost, $sDBUser, $sDBPass, $sDBName);
 
 //vérification de connexion
 if($_POST){
@@ -21,15 +21,17 @@ if($_POST){
 		else{
 			$page='accueil';
 		}
-	
-		$oui=new requete('SELECT `id`, CONCAT(`prenom`," ",`nom`), `admin`, `actif` FROM `a28_user` WHERE `log`="'.$pseudo.'" AND `pass`="'.$pass.'"','marche pas');
-		if(mysql_num_rows($oui->req)==1){
+		$db = new dbAccess();
+		$rq = 'SELECT `id`, CONCAT(`prenom`," ",`nom`) as full_name, `admin`, `actif` FROM `a28_user` WHERE `log`="'.$pseudo.'" AND `pass`="'.$pass.'"';
+		$result = $db->select($rq);
+		//$oui=new requete('SELECT `id`, CONCAT(`prenom`," ",`nom`), `admin`, `actif` FROM `a28_user` WHERE `log`="'.$pseudo.'" ','marche pas');
+		if(count($result)==1){
 			$_SESSION['pseudo']=$pseudo;
-			$redacteur=mysql_fetch_row($oui->req);
-			$_SESSION['id']=$redacteur[0];
-			$_SESSION['full_name']=$redacteur[1];
-			$_SESSION['is_admin']=$redacteur[2];
-			$_SESSION['actif']=$redacteur[3];
+			$redacteur=1;//mysql_fetch_row($oui->req);
+			$_SESSION['id']=$result[0]->id;
+			$_SESSION['full_name']=$result[0]->full_name;
+			$_SESSION['is_admin']=$result[0]->admin;
+			$_SESSION['actif']=$result[0]->actif;
 			$_SESSION['visible']='="1"';
 			$_SESSION['masque']='Voir';
 			
