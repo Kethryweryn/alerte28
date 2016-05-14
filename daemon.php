@@ -27,6 +27,7 @@ while (1) {
 		}
 
 		// On truncate la table des user actions
+		$dbAccess->query("TRUNCATE TABLE a28_user_action ;");
 
 		// On commit la transaction
 		$dbAccess->commit();
