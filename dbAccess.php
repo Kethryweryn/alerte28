@@ -33,6 +33,14 @@ class dbAccess {
 				. $mysqli->connect_error);}
 		return $mysqli;
 	}
+	
+	/**
+	 * renvoie l'objet mysqli
+	 */
+	public function getMysqli()
+	{
+		return $this->mysqli;
+	}
 
 	/**
 	 * Passe une requête sur la base de données

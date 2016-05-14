@@ -1,18 +1,20 @@
 <?php
 //interdiction d'ouverture directe du fichier !
-if('a28_service_inc.php'==$_SERVER['php_self']){
+if('a28_service_inc.php'==$_SERVER['PHP_SELF']){
 	header('location:index.php?e=6');
 }
-
-$oServices=new requete('SELECT `id`, `nom`  FROM `a28_service`','Liste des Services');
+$db = new dbAccess();
+$rq = 'SELECT `id`, `nom`  FROM `a28_service`';
+$oServices = $db->select($rq);
 
 $sNomService="";
 $sActionBouton="Ajouter";
 
 if(!empty($_GET['id'])){
-	$oServiceEdit=new requete('SELECT `id`, `nom`  FROM `a28_service` WHERE `id`="'.$_GET['id'].'"','Service à modifier');
+	$rq = 'SELECT `id`, `nom`  FROM `a28_service` WHERE `id`="'.$_GET['id'].'"';
+	$oServiceEdit = $db->select($rq);
 
-	while($oServiceDetail=mysql_fetch_object($oServiceEdit->req)){
+	foreach($oServiceEdit as $oServiceDetail){
 		$idService=$oServiceDetail->id;
 		$sNomService=$oServiceDetail->nom;	
 	}
@@ -23,10 +25,42 @@ if(!empty($_GET['id'])){
 ?>
 <h1>Liste des services</h1>
 	<?php
-		$sTableau=$oServices->liste_tableau($oServices->req, 'a28_service', 'border="1"');
-		echo $sTableau;
+		/*$sTableau=$oServices->liste_tableau($oServices->req, 'a28_service', 'border="1"');
+		echo $sTableau;*/
+		
 	?>
+<script type="text/javascript">
+google.charts.load('current', {'packages':['table']});
+google.charts.setOnLoadCallback(drawTable);
 
+function drawTable() {
+  var data = new google.visualization.DataTable();
+  data.addColumn('number', 'id');
+  data.addColumn('string', 'Nom');
+  data.addRows([
+<?php 
+// on ajoute tous les utilisateurs présents dans le système.
+$array_result = array();
+
+
+
+foreach($oServices as $service)
+{
+	$array_result[] = "[". $service->id.",'".mysqli_real_escape_string($db->getMysqli(),$service->nom)."']";
+}
+echo implode(",", $array_result);
+
+?>
+    
+  ]);
+
+  var table = new google.visualization.Table(document.getElementById('table_div'));
+
+  table.draw(data, { width: '100%',allowHtml: true});
+}
+
+</script>
+<div id="table_div"></div>
 <form name="form" action="editService.php" method="post">			
 	<table>
 		<tbody>

@@ -12,7 +12,7 @@ $login = "";
 $pass = "";
 $actif = 1;
 $manager = 0;
-$service = 0;
+$service_id = 0;
 if(isset($_GET['uid']))
 {
 	$db = new dbAccess();

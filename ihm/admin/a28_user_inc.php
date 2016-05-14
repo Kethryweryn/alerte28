@@ -10,7 +10,7 @@ if(isset($_POST['create_user']))
 {
 	
 	$db = new dbAccess();
-	$mysqli = $db->connect();
+	$mysqli = $db->getMysqli();
 	$rq = "insert into a28_user (nom, prenom, log, pass, actif, service_id, leader, admin) 
 			VALUES ('".mysqli_real_escape_string($mysqli, $_POST['nom'])."',
 					'".mysqli_real_escape_string($mysqli, $_POST['prenom'])."',
