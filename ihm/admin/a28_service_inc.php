@@ -37,6 +37,7 @@ function drawTable() {
   var data = new google.visualization.DataTable();
   data.addColumn('number', 'id');
   data.addColumn('string', 'Nom');
+  
   data.addRows([
 <?php 
 // on ajoute tous les utilisateurs présents dans le système.
