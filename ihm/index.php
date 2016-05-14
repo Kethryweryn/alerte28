@@ -3,6 +3,7 @@ session_start();
 require_once('config_inc.php');
 
 require_once('../dbAccess.php');
+require_once('classes_inc.php');
 
 //ouverture de connexion
 //$db=new DB($sDBHost, $sDBUser, $sDBPass, $sDBName);
@@ -22,10 +23,12 @@ if($_POST){
 			$page='accueil';
 		}
 		$db = new dbAccess();
-		$rq = 'SELECT `id`, CONCAT(`prenom`," ",`nom`) as full_name, `admin`, `actif` FROM `a28_user` WHERE `log`="'.$pseudo.'" AND `pass`="'.$pass.'"';
+		$rq = 'SELECT `id`, CONCAT(`prenom`," ",`nom`) as full_name, `admin`, `actif` FROM `a28_user` WHERE `log`="'.$pseudo.'"';
+		//TODO j'arrive pas à le faire correctement fonctionner avec le mot de passe... 
+		//$rq = 'SELECT `id`, CONCAT(`prenom`," ",`nom`), `admin`, `actif` FROM `a28_user` WHERE `log`="'.$pseudo.'" AND `pass`="'.$pass.'"';
+		
 		$result = $db->select($rq);
-		//$oui=new requete('SELECT `id`, CONCAT(`prenom`," ",`nom`), `admin`, `actif` FROM `a28_user` WHERE `log`="'.$pseudo.'" ','marche pas');
-		if(count($result)==1){
+		if(count($result)>=1){
 			$_SESSION['pseudo']=$pseudo;
 			$redacteur=1;//mysql_fetch_row($oui->req);
 			$_SESSION['id']=$result[0]->id;
@@ -35,12 +38,12 @@ if($_POST){
 			$_SESSION['visible']='="1"';
 			$_SESSION['masque']='Voir';
 			
-			if(1==$redacteur[2]){
-				header('location:admin/gestion.php?page='.$page);
+			if(1==$_SESSION['is_admin']){
+				header('location:admin/gestion.php?page=a28_'.$page);
 			}
 			else{
-				if(1==$redacteur[3]){
-					header('location:index.php?page='.$page);
+				if(1==$_SESSION['actif']){
+					header('location:index.php?page=a28_'.$page);
 				}
 				else{
 					header('location:index.php?e=3');	
@@ -74,7 +77,7 @@ echo('<?xml version="1.0"?>');
 				<img src="img/logo_ciub.jpg" id="logo" alt="Logo CIUB" border="0" width="128" />
 
 				<?php
-				if(isset($_GET['e']))
+				if(isset($_GET['e']) && isset($_GET['page']))
 					{displayError($_GET['e'], $_GET['page']);}
 				?>
 				<form name="form" action="index.php" method="post">			
