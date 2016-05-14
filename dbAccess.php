@@ -6,11 +6,19 @@ class dbAccess {
 	private $host;
 	private $login;
 	private $password;
+	private $mysqli;
+
 	public function __construct() {
 		$this->db = DB_NAME;
 		$this->host = DB_HOST;
 		$this->login = DB_LOGIN;
 		$this->password = DB_PASSWORD;
+
+		$this->mysqli = $this->connect();
+	}
+
+	public function __destruct() {
+		$this->mysqli->close();
 	}
 
 	/**
@@ -33,9 +41,7 @@ class dbAccess {
 	 */
 
 	public function query($rq) {
-		$mysqli = $this->connect();
-		$ret = $mysqli->query($rq);
-		$mysqli->close();
+		$ret = $this->mysqli->query($rq);
 		return $ret;
 	}
 
@@ -52,5 +58,17 @@ class dbAccess {
 			$array_ret[] = $obj;
 		}
 		return $array_ret;
+	}
+
+	public function begin() {
+		$this->query("BEGIN;");
+	}
+
+	public function commit() {
+		$this->query("COMMIT;");
+	}
+
+	public function rollback() {
+		$this->query("ROLLBACK;");
 	}
 }
