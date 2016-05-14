@@ -47,7 +47,20 @@ echo implode(",", $array_result);
   var table = new google.visualization.Table(document.getElementById('table_div'));
 
   table.draw(data, { width: '100%',allowHtml: true});
+
+  google.visualization.events.addListener(table, 'select', selectHandler);
+  function selectHandler(e) {
+	  var selection = table.getSelection();
+	  var item = selection[0];
+	  // récupération de l'id
+	  var str = data.getFormattedValue(item.row, 0);
+	  $.post("getdata.php?id="+str, function(response) {
+		  	$('#event_descrip').text(response);
+	    });   
+
+  }
 }
 
 </script>
 <div id="table_div"></div>
+<div id="event_descrip" height=300px>coucou</div>
