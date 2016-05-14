@@ -72,14 +72,15 @@ echo('<?xml version="1.0"?>');
 				<img src="img/logo_ciub.jpg" id="logo" alt="Logo CIUB" border="0" width="128" />
 
 				<?php
-					displayError($_GET['e'], $_GET['page']);
+				if(isset($_GET['e']))
+					{displayError($_GET['e'], $_GET['page']);}
 				?>
 				<form name="form" action="index.php" method="post">			
 					<table>
 						<tbody>
 							<tr>
 								<td class="title">
-									<label for="rcmloginuser">Utilisateur(username@domain)</label>
+									<label for="rcmloginuser">Utilisateur</label>
 								</td>
 								<td class="input">
 									<input name="_user" id="rcmloginuser" size="40" autocapitalize="off" autocomplete="off" type="text">
