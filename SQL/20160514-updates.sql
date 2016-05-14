@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `a28_engine_user_action`
 --
 
-CREATE TABLE IF NOT EXISTS `a28_engine_user_action` (
+CREATE TABLE IF NOT EXISTS `a28_user_action` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `action_id` int(11) NOT NULL,
