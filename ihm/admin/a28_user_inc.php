@@ -5,12 +5,12 @@ if('a28_user_inc.php'==$_SERVER['PHP_SELF']){
 }
 
 // Gestion de la création d'utilisateur
+$db = new dbAccess();
+$mysqli = $db->getMysqli();
 
 if(isset($_POST['create_user']))
 {
 	
-	$db = new dbAccess();
-	$mysqli = $db->getMysqli();
 	$rq = "insert into a28_user (nom, prenom, log, pass, actif, service_id, leader, admin) 
 			VALUES ('".mysqli_real_escape_string($mysqli, $_POST['nom'])."',
 					'".mysqli_real_escape_string($mysqli, $_POST['prenom'])."',
@@ -22,6 +22,15 @@ if(isset($_POST['create_user']))
 					0)";
 	$mysqli->close();
 	$db->query($rq);
+}
+
+if(isset($_POST['update_user']))
+{
+	// gestion du mot de passe si vide, on ne fait rien, sinon, on encrypte
+	$password = strlen($_POST['password']?a28crypt($mysqli, $_POST['password']):"");
+	$rq = "update a28_user set nom='".$_POST['nom']."', prenom='".$_POST['prenom']."', 
+			log='".$_POST['login']."', actif='".$_POST['actif']."', service_id=".$_POST['service'].", 
+					leader='".$_POST['manager']."' where id=".$_POST['udpate_user'];
 }
 
 

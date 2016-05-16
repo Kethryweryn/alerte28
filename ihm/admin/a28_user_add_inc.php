@@ -75,8 +75,8 @@ foreach($result as $service)
 ?>	
 	</select>
 	</div>
-	<input type="hidden" name="<?php if(isset($_GET['uid'])) {echo "update_user";} else {echo "create_user";} ?>" value=1>
-	<input class="button mainaction" value="Ajouter" type="submit">
+	<input type="hidden" name="<?php if(isset($_GET['uid'])) {echo "update_user";} else {echo "create_user";} ?>" value=<?php if(isset($_GET['uid'])){echo $_GET['uid'];} else {echo"1";} ?>>
+	<input class="button mainaction" value="<?php if(isset($_GET['uid'])){echo "Modifier";} else { echo "Ajouter";} ?>" type="submit">
 
 </form>
 </div>
