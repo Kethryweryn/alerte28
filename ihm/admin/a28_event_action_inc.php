@@ -44,5 +44,6 @@ foreach($result as $action)
 }
 echo "</select>";
 ?>
+<input type="hidden" name="send_order" value=<?php echo $_GET['eid']; ?> />
 <input class="button mainaction" type=submit value="Accomplir" />
 </form>

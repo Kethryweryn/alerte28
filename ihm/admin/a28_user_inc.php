@@ -31,6 +31,13 @@ if(isset($_POST['update_user']))
 	$rq = "update a28_user set nom='".$_POST['nom']."', prenom='".$_POST['prenom']."', 
 			log='".$_POST['login']."', actif='".$_POST['actif']."', service_id=".$_POST['service'].", 
 					leader='".$_POST['manager']."' where id=".$_POST['udpate_user'];
+	$db->query($rq);
+	if(strlen($password))
+	{
+		$rq = "update a28_user set password='$password' where id=".$_POST['udpate_user'];
+		$db->query($rq);
+	}
+	echo "<h1>L'enregistrement a été correctement modifié</h1>";
 }
 
 
