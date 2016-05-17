@@ -11,3 +11,8 @@ CREATE TABLE `a28_action_params` (
   `val` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+ALTER TABLE `a28_action_params` ADD `counter_id` INT NOT NULL AFTER `val`, ADD `impact` INT NOT NULL AFTER `counter_id`;
+
+ALTER TABLE `a28_action_event` ADD `counter_id` INT NOT NULL AFTER `impact`;
+
+ALTER TABLE `a28_user_action` ADD `action_param_id` INT NOT NULL AFTER `event_id`;

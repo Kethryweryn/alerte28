@@ -14,10 +14,16 @@ $event_list = $db->select($rq);
 if(isset($_POST['send_order']))
 {
 	// ajout de l'action dans la table du moteur. 
-	$rq = "insert into a28_user_action `user_id`,`action_id`,  `event_id` ) 
-			VALUES (".$_SESSION['uid'].", ".$_POST['action'].", ".$_POST['send_order'].")";
+	$action_event_id = 0;
+	if(isset($_POST['spec_action']))
+	{
+		// on a une action spécifique
+		$action_event_id = $_POST['spec_action'];
+	}
+	$rq = "insert into a28_user_action `user_id`,`action_id`,  `event_id`, action_event_id ) 
+			VALUES (".$_SESSION['uid'].", ".$_POST['action'].", ".$_POST['send_order'].", ".$action_event_id.")";
 	$db->query($rq);
-}
+	
 
 ?>
 
