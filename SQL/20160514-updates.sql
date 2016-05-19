@@ -6,9 +6,8 @@ CREATE TABLE `a28_action_event` (
   `event_id` int(11) DEFAULT NULL,
   `impact` double NOT NULL,
   `counter_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-ALTER TABLE `a28_action_event` CHANGE `task_id` `event_id` INT(11) NULL DEFAULT NULL;
 
 -- phpMyAdmin SQL Dump
 -- version 3.4.10.1deb1
