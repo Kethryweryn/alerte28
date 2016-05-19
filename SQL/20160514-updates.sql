@@ -1,6 +1,12 @@
 rename table a28_task to a28_event; 
 
-rename table a28_action_task to a28_action_event;
+CREATE TABLE `a28_action_event` (
+  `id` int(11) NOT NULL,
+  `action_id` int(11) DEFAULT NULL,
+  `event_id` int(11) DEFAULT NULL,
+  `impact` double NOT NULL,
+  `counter_id` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 ALTER TABLE `a28_action_event` CHANGE `task_id` `event_id` INT(11) NULL DEFAULT NULL;
 
