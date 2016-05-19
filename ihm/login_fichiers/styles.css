@@ -58,6 +58,8 @@ textarea {
 	-o-box-shadow: inset 0 0 2px 1px rgba(0,0,0, 0.1);
 }
 
+
+
 input[type="text"]:focus,
 input[type="password"]:focus,
 input.button:focus,
@@ -69,6 +71,8 @@ textarea:focus {
 	-o-box-shadow: 0 0 5px 2px rgba(71,135,177, 0.9);
 	outline: none;
 }
+
+
 
 input.placeholder,
 textarea.placeholder {
@@ -1462,7 +1466,50 @@ ul.proplist li {
 	padding: 8px;
 }
 
-#login-form input[type="text"],
+
+#login-form input[type="text"]{
+	background: url(images/input_back_lockandkey.png) no-repeat;
+	/*position: absolute;
+	top: 159px;
+	left: 50px;*/
+							border: 0px;
+							width: 265px;
+							padding-left: 50px;
+							font-size: 15px;
+							line-height: 15px;
+							padding-top: 9px;
+							height:38px;
+							color:rgb(85, 86, 90);
+							opacity:.8;
+						}
+
+#login-form input[type="password"], .enter_password {
+	background: url(images/input_back.png) no-repeat;
+	border: 0px;
+							width: 305px;
+							padding-left: 50px;
+							font-size: 15px;
+							line-height: 15px;
+							padding-top: 9px;
+							height:62px;
+							color:rgb(85, 86, 90);
+							opacity:.8;
+}
+
+						
+#login-form input.button {background: url(images/login_button.png) no-repeat top; width: 316px;
+							border: 0px;
+							height: 85px;
+							/*position: absolute;
+							top: 257px;
+							left: 43px;*/
+							cursor:pointer; opacity:.7;
+						}
+
+
+
+
+/*#login-form input[type="text"],
 #login-form input[type="password"] {
 	width: 150px;
 	border-color: #666;
@@ -1482,7 +1529,7 @@ ul.proplist li {
 	-moz-box-shadow: inset 0 1px 0 0 #fff;
 	-webkit-box-shadow: inset 0 1px 0 0 #fff;
 	-o-box-shadow: inset 0 1px 0 0 #fff;
-}
+}*/
 
 #login-form input.button:hover,
 #login-form input.button:focus {

@@ -97,12 +97,12 @@ echo('<?xml version="1.0"?>');
 									<label for="rcmloginpwd">Mot de passe</label>
 								</td>
 								<td class="input">
-									<input name="_pass" id="rcmloginpwd" size="40" autocapitalize="off" autocomplete="off" type="password">
+									<input name="_pass" id="rcmloginpwd" size="40" autocapitalize="off" autocomplete="off" type="password" class="enter_password">
 								</td>
 							</tr>
 						</tbody>
 					</table>
-					<p class="formbuttons"><input class="button mainaction" value="Connexion" type="submit"></p>
+					<p class="formbuttons"><input class="button mainaction" value="" type="submit"></p>
 			</form>	
 		</div>
 		<div class="box-bottom">
