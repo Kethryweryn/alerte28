@@ -7,3 +7,8 @@ ALTER TABLE `a28_action_event` CHANGE `impact` `impact` DOUBLE NULL ;
 ALTER TABLE `a28_action_event` CHANGE `counter_id` `counter_id` INT(11) NULL ;
 
 DROP TABLE a28_action_params ;
+
+ALTER TABLE `a28_action` ADD `parent_id` INT(11) NULL ;
+
+ALTER TABLE `a28_user_action`
+  DROP `action_param_id`;
