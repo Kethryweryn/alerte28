@@ -49,8 +49,16 @@ class dbAccess {
 	 */
 
 	public function query($rq) {
-		$ret = $this->mysqli->query($rq);
-		return $ret;
+		return $this->mysqli->query($rq);
+	}
+	
+	/**
+	 * Prépare une requête bdd
+	 * @param string $rq
+	 */
+	public function prepare($rq)
+	{
+		return $this->mysqli->prepare($rq);
 	}
 
 	/**

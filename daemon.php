@@ -5,10 +5,10 @@ require_once 'dbAccess.php';
 $db_access = new dbAccess();
 
 // On instancie une classe qui est en charge de gérer les events
-$event_manager = new eventManager($db_access);
+$event_manager = new EventManager($db_access);
 
 // On instancie une classe qui est en charge de résoudre les events
-$event_solver = new eventSolver($db_access);
+$event_solver = new EventSolver($db_access);
 
 while (1) {
 	try
