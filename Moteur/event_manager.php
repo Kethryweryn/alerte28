@@ -1,5 +1,5 @@
 <?php
-class eventManager {
+class EventManager {
 	private $db;
 	public function __construct($db_access) {
 		$this->$db = $db_access;

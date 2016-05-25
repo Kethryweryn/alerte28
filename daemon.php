@@ -36,6 +36,14 @@ while (1) {
 	}
 
 	// Gestion des événements à durée limitée
+	
+	// Il faut une gestion en actes donc il faut que chaque événement soit lié à un acte
+	// Il faut pouvoir déclencher le début et la fin d'un acte
+	
+	// On récupère la liste des événements en cours
+	// On fait la différence entre le start date de l'événement et sa durée
+	// Si le temps est dépassé on solve l'événement avec la résolution par défaut
+	// La résolution par défaut se fait en prenant les actions typées "default" (booléen) dans la table action_event
 
 	sleep(1);
 }
