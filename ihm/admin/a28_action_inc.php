@@ -22,7 +22,7 @@ if(isset($_POST['send_order']))
 	}
 	$rq = "insert into a28_user_action (`user_id`,`action_id`,  `event_id` ) 
 			VALUES (".$_SESSION['id'].", ".$action_id.", ".$_POST['send_order'].")";
-	$db->query($rq);
+	$db->query($rq); 
 	 
 }
 ?>
