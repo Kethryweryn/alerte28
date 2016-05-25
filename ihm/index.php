@@ -3,7 +3,7 @@ session_start();
 require_once('config_inc.php');
 
 require_once('../dbAccess.php');
-require_once('classes_inc.php');
+//require_once('classes_inc.php');
 
 //ouverture de connexion
 //$db=new DB($sDBHost, $sDBUser, $sDBPass, $sDBName);

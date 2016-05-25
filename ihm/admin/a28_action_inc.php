@@ -9,22 +9,22 @@ $db = new dbAccess();
 $rq = "select * from a28_event where enabled = '1'";
 $event_list = $db->select($rq);
 
-
 // Gestion  de la création d'action sur event
 if(isset($_POST['send_order']))
 {
 	// ajout de l'action dans la table du moteur. 
-	$action_event_id = 0;
+	$action_id = $_POST['action'];
+	
 	if(isset($_POST['spec_action']))
 	{
 		// on a une action spécifique
-		$action_event_id = $_POST['spec_action'];
+		$action_id = $_POST['spec_action'];
 	}
-	$rq = "insert into a28_user_action `user_id`,`action_id`,  `event_id`, action_event_id ) 
-			VALUES (".$_SESSION['uid'].", ".$_POST['action'].", ".$_POST['send_order'].", ".$action_event_id.")";
+	$rq = "insert into a28_user_action (`user_id`,`action_id`,  `event_id` ) 
+			VALUES (".$_SESSION['id'].", ".$action_id.", ".$_POST['send_order'].")";
 	$db->query($rq);
 	
-
+}
 ?>
 
 <h1>Liste des Evènements</h1>
@@ -79,4 +79,8 @@ echo implode(",", $array_result);
 
 </script>
 <div id="table_div"></div>
-<div id="event_descrip" height="300"></div>
+<div id="event_descrip"></div>
+
+
+
+
