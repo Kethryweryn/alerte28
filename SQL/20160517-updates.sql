@@ -13,6 +13,4 @@ CREATE TABLE `a28_action_params` (
 
 ALTER TABLE `a28_action_params` ADD `counter_id` INT NOT NULL AFTER `val`, ADD `impact` INT NOT NULL AFTER `counter_id`;
 
-ALTER TABLE `a28_action_event` ADD `counter_id` INT NOT NULL AFTER `impact`;
-
 ALTER TABLE `a28_user_action` ADD `action_param_id` INT NOT NULL AFTER `event_id`;
