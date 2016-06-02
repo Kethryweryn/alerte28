@@ -10,7 +10,7 @@ require_once('../../dbAccess.php');
 if(empty($_SESSION))
 	header('location:../index.php?e=6');
 	//vérification de session
-	if(1==$_SESSION['is_admin']){
+	if(1==$_SESSION['is_admin']){ 
 	$sFullName=$_SESSION['full_name'];
 }
 else{
