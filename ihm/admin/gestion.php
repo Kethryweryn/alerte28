@@ -7,9 +7,10 @@ require_once('../config_inc.php');
 require_once('../../dbAccess.php');
 //ouverture de connexion
 //$db=new DB($sDBHost, $sDBUser, $sDBPass, $sDBName);
-
-//vérification de session
-if(1==$_SESSION['is_admin']){
+if(empty($_SESSION))
+	header('location:../index.php?e=6');
+	//vérification de session
+	if(1==$_SESSION['is_admin']){
 	$sFullName=$_SESSION['full_name'];
 }
 else{

@@ -11,8 +11,8 @@ if('a28_event_action_inc.php'==$_SERVER['PHP_SELF']){
 $db = new dbAccess();
 
 // on récupère la date de dernière action du service
-$rq = "select DATE_ADD(action_on, INTERVAL 80 MINUTE) as target from a28_service_history where service_id = ".$_SESSION['service_id']." 
-		and DATE_ADD(action_on, INTERVAL 80 MINUTE) > NOW() ";
+$rq = "select DATE_ADD(action_on, INTERVAL 30 MINUTE) as target from a28_service_history where service_id = ".$_SESSION['service_id']." 
+		and DATE_ADD(action_on, INTERVAL 30 MINUTE) > NOW() ";
 
 $res = $db->select($rq);
 if(count($res) == 0)
