@@ -34,7 +34,7 @@ echo('<?xml version="1.0"?>');
 	</head>
 
 	<body>
-		<div id="login-form">
+		<div id="content-form">
 			<div class="box-inner">
 				<div>
 					<a href="gestion.php">
