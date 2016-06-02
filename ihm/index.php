@@ -23,7 +23,7 @@ if($_POST){
 			$page='accueil';
 		}
 		$db = new dbAccess();
-		$rq = 'SELECT `id`, CONCAT(`prenom`," ",`nom`) as full_name, `admin`, `actif`, service_id FROM `a28_user` WHERE `log`="'.$pseudo.'"';
+		$rq = 'SELECT `id`, CONCAT(`prenom`," ",`nom`) as full_name, `admin`, `actif`, service_id, leader FROM `a28_user` WHERE `log`="'.$pseudo.'"';
 		//TODO j'arrive pas à le faire correctement fonctionner avec le mot de passe... 
 		//$rq = 'SELECT `id`, CONCAT(`prenom`," ",`nom`), `admin`, `actif` FROM `a28_user` WHERE `log`="'.$pseudo.'" AND `pass`="'.$pass.'"';
 		
@@ -38,6 +38,7 @@ if($_POST){
 			$_SESSION['actif']=$result[0]->actif;
 			$_SESSION['visible']='="1"';
 			$_SESSION['masque']='Voir';
+			$_SESSION['leader'] = $result[0]->leader;
 			
 			if(1==$_SESSION['is_admin']){
 				header('location:admin/gestion.php?page=a28_'.$page);

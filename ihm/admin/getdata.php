@@ -35,6 +35,7 @@ else
 			}
 			echo $content;
 			break;
+
 		default:
 			break;
 	}
