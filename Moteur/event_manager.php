@@ -29,5 +29,12 @@ class EventManager {
 	 * Récupération des événements terminés
 	 */
 	public function getOutdatedEvents() {
+		$res = $db->query ( "SELECT a28_event.id from a28_event JOIN a28_act ON a28_event.act_id = a28_act.id WHERE TIMESTAMPDIFF(MINUTE, a28_act_start_on, a28_event.start_on) > a28_event.duration ;" );
+
+		$event_ids = array ();
+
+		while ( $event_db = $res->fetch_object () ) {
+			$event_ids [] = $event_db->id;
+		}
 	}
 }
