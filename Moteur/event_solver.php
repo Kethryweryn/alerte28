@@ -9,11 +9,11 @@ class EventSolver {
 		// faite par l'utilisateur sur l'événement ?
 		// Cette problématique est gérée par la table action_event
 		// Cette table fait le lien entre une action et ses conséquences pour un événement
-		
+
 		// Voici les impacts possibles :
 		// - modifier les compteurs (fonction d'event_manager qui modifie la table a28_counters)
 		// - terminer l'event, ce qui change le statut de l'event et active les événements suivants dans l'arbre
-		
+
 		// On récupère la liste des action_event en fonction d'action_id et event_id
 		// (Note : action_id peut être NULL si c'est la résolution par défaut)
 		$rq = "SELECT impact, counter_id, end_event, next_event_id from `a28_action_event` WHERE event_id = ?";
@@ -22,15 +22,15 @@ class EventSolver {
 		else
 			$rq .= "AND action_id IS NULL";
 		$rq .= " ;";
-		
+
 		$stmt = $db->prepare ( $rq );
 		if ($user_action->action_id)
 			$stmt->bind_param ( "ii", $user_action->event_id, $user_action->action_id );
 		else
 			$stmt->bind_param ( "i", $user_action->event_id );
-		
+
 		$stmt->bind_result ( $impact, $counter_id, $end_event, $next_event_id );
-		
+
 		while ( $stmt->fetch () ) {
 			// On résout ce que fait l'action
 			if ($counter_id) {
@@ -46,7 +46,7 @@ class EventSolver {
 				$stmt_event->execute ();
 			}
 			if ($next_event_id) {
-				$rq_next_event = "UPDATE a28_event SET enabled = TRUE WHERE id = ? ;";
+				$rq_next_event = "UPDATE a28_event SET enabled = TRUE, start_on = NOW() WHERE id = ? ;";
 				$stmt_next_event = $db->prepare ( $rq_next_event );
 				$stmt_next_event->bind_param ( "i", $next_event_id );
 				$stmt_next_event->execute ();
