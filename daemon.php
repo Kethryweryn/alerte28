@@ -42,7 +42,7 @@ while ( 1 ) {
 	// On récupère la liste des événements en cours
 	// On fait la différence entre le start date de l'événement et sa durée
 	// Si le temps est dépassé on solve l'événement avec la résolution par défaut
-	// La résolution par défaut se fait en prenant les actions typées "default" (booléen) dans la table action_event
+	// La résolution par défaut se fait en prenant les actions qui n'ont pas d'action_id dans la table action_event
 
 	sleep ( 1 );
 }
