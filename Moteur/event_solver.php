@@ -1,9 +1,19 @@
 <?php
 class EventSolver {
 	private $db;
+	/**
+	 * Constructeur
+	 *
+	 * @param unknown $db_access
+	 */
 	public function __construct($db_access) {
 		$this->$db = $db_access;
 	}
+	/**
+	 * Résolution d'action ou d'événement
+	 *
+	 * @param UserAction $user_action
+	 */
 	public function solve(UserAction $user_action) {
 		// Cette fonction doit résoudre la problématique suivante : quelle est l'impact de l'action
 		// faite par l'utilisateur sur l'événement ?

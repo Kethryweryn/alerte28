@@ -44,5 +44,15 @@ while ( 1 ) {
 	// Si le temps est dépassé on solve l'événement avec la résolution par défaut
 	// La résolution par défaut se fait en prenant les actions qui n'ont pas d'action_id dans la table action_event
 
+	foreach ( $event_manager->getOutdatedEvents () as $event ) {
+		// On crée une user_action qui n'a pas d'action_id et on la solve
+		$user_action = new UserAction ( null, null, null, $event->id );
+		try {
+			$event_solver->solve ( $user_action );
+		} catch ( Exception $e ) {
+			$event_solver->markAsError ( $user_action, $e );
+		}
+	}
+
 	sleep ( 1 );
 }
