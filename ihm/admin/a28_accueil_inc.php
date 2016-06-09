@@ -3,5 +3,8 @@
 <a href="gestion.php?page=a28_service">Service</a> <br />
 				<a href="gestion.php?page=a28_user">Utilisateurs</a><br />
 				<a href="gestion.php?page=a28_action">Actions</a><br />
-				<a href="gestion.php?page=a28_task">T&acirc;ches</a><br />
-				<a href="gestion.php?page=a28_cata">Catastrophe</a>
+<?php 
+if($_SESSION['is_admin'] == 1)
+	echo '				<a href="gestion.php?page=a28_action_admin">Administration des actions</a>';
+				
+?>
