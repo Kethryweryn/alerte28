@@ -9,4 +9,6 @@ ALTER TABLE `a28_event`
   DROP `predecessor`,
   DROP `successor`;
   
-  ALTER TABLE `a28_event` ADD `start_on` DATETIME NULL , ADD `act_id` INT NOT NULL , ADD `start_with_act` BOOLEAN NOT NULL DEFAULT FALSE , ADD INDEX (`act_id`) ;
+ ALTER TABLE `a28_event` ADD `start_on` DATETIME NULL , ADD `act_id` INT NOT NULL , ADD `start_with_act` BOOLEAN NOT NULL DEFAULT FALSE , ADD INDEX (`act_id`) ;
+  
+ ALTER TABLE `a28_action_event` ADD `default_action` BOOLEAN NOT NULL DEFAULT FALSE ;
