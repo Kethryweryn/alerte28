@@ -62,5 +62,21 @@ class EventSolver {
 				$stmt_next_event->execute ();
 			}
 		}
+
+		// On sauvegarde l'historique
+		$stmt_history = $db->prepare ( "INSERT INTO a28_action_history(service_id, user_id, action_id, action_on) VALUES (?, ?, ?, NOW())" );
+		$stmt_history->bind_param ( "iii", $user_action->service_id, $user_action->user_id, $user_action->action_id );
+		$stmt_history->execute ();
+	}
+
+	/**
+	 * Résout une action en erreur
+	 *
+	 * @param UserAction $user_action
+	 */
+	public function markAsError(UserAction $user_action, Exception $e) {
+		$stmt_history = $db->prepare ( "INSERT INTO a28_action_history(service_id, user_id, action_id, action_on, is_error, error_message) VALUES (?, ?, ?, NOW(), 1, ?)" );
+		$stmt_history->bind_param ( "iiis", $user_action->service_id, $user_action->user_id, $user_action->action_id, $e->getMessage() );
+		$stmt_history->execute ();
 	}
 }

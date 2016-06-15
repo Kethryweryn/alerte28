@@ -46,7 +46,7 @@ while ( 1 ) {
 
 	foreach ( $event_manager->getOutdatedEvents () as $event ) {
 		// On crée une user_action qui n'a pas d'action_id et on la solve
-		$user_action = new UserAction ( null, null, null, $event->id );
+		$user_action = new UserAction ( null, null, null, $event->id, null );
 		try {
 			$event_solver->solve ( $user_action );
 		} catch ( Exception $e ) {
