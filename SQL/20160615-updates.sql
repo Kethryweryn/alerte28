@@ -1,0 +1,1 @@
+ALTER TABLE `a28_service_history` ADD `is_error` BOOLEAN NOT NULL DEFAULT FALSE , ADD `error_message` TEXT NULL ;
