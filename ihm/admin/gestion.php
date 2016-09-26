@@ -115,7 +115,6 @@ blockquote.twitter-tweet a:focus {
 						displayError($_GET['e'], $_GET['page']);
 					}
 					$page='a28_accueil_inc.php';
-					
 					if(!empty($_GET['page']) && file_exists($_GET['page']).'_inc.php'){
 						$page=$_GET['page'].'_inc.php';
 					}

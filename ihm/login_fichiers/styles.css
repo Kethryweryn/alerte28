@@ -1592,7 +1592,8 @@ ul.proplist li {
 
 #content-form .box-inner {
 	width: 90%;
-	background: url(../img/stainless-steel.jpg) top no-repeat #5c5c5c;
+	background: url(../img/stainless-steel.jpg) top  #5c5c5c;
+	repeat: repeat-y;
 	margin: 0 50px;
 	padding: 10px 24px 24px 24px;
 	border: 1px solid #333;
