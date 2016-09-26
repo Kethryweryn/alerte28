@@ -91,7 +91,7 @@ blockquote.twitter-tweet a:focus {
         <ul class="nav navbar-nav navbar-left">
           <li><a href="../../Google_charts/index.html">Home</a></li>
           <li><a href="../../Google_charts/twitter.html">Twitter</a></li>
-          <li><a href="index.php">L'interface</a></li>
+          <li><a href="gestion.php">L'interface</a></li>
         </ul>
       </div>
     </div>
