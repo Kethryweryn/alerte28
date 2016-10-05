@@ -23,7 +23,7 @@ echo('<?xml version="1.0"?>');
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dashboard Starter UI, by Keen IO</title>
+  <title>CIUB - Interface</title>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
   <link rel="stylesheet" type="text/css" href="../../template/assets/lib/bootstrap/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../../template/assets/css/keen-dashboards.css" />
