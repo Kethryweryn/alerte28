@@ -225,7 +225,7 @@ class doublon extends requete{
 }
 
 function a28crypt($str){
-	return crypt($str, '$1$CV6Z5FY8$53.nr/x4UwCCKwDEgBwTD/');
+	return md5($str);
 }
 
 function displayError($e, $p){

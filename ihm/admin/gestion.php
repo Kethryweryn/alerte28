@@ -14,8 +14,51 @@ if(empty($_SESSION))
 	$sFullName=$_SESSION['full_name'];
 }
 else{
-	header('location:index.php?e=2');
+	//header('location:index.php?e=2');
 }
+
+if(isset($_GET['page']))
+{
+	if($_SESSION['is_admin'] == 1)
+		$clearance = 2;
+	elseif ($_SESSION['leader'] == 1)
+		$clearance = 1;
+	else 
+		$clearance = 0;
+	switch ($clearance)
+	{
+		case 0:
+			switch($_GET['page'])
+			{
+				case 'a28_accueil':
+				case 'a28_action':
+				case 'a28_event_action':
+					break;
+				default:
+					header('location:gestion.php?page=a28_accueil');
+					
+					
+			}
+			case 1:
+				switch($_GET['page'])
+				{
+					case 'a28_accueil':
+					case 'a28_action':
+					case 'a28_event_action':
+					case 'a28_user':
+					case 'a28_user_add':
+						break;
+					default:
+						header('location:gestion.php?page=a28_accueil');
+						break;
+			
+				}
+			default:
+				break;
+					
+	}
+}
+
 
 echo('<?xml version="1.0"?>');
 ?>

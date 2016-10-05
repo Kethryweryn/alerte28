@@ -11,9 +11,8 @@ if('a28_event_action_inc.php'==$_SERVER['PHP_SELF']){
 $db = new dbAccess();
 
 // on récupère la date de dernière action du service
-$rq = "select DATE_ADD(action_on, INTERVAL 30 MINUTE) as target from a28_service_history where service_id = ".$_SESSION['service_id']." 
+$rq = "select DATE_ADD(action_on, INTERVAL 30 MINUTE) as target from a28_action_history where service_id = ".$_SESSION['service_id']." 
 		and DATE_ADD(action_on, INTERVAL 30 MINUTE) > NOW() ";
-
 $res = $db->select($rq);
 if(count($res) == 0)
 {
@@ -29,10 +28,11 @@ if(count($res) == 0)
 	
 	// Ensuite,on récupère la liste des actions possibles et on les affiche dans une combo
 	$service_id = $_SESSION['service_id'];
-	$rq = "select a.id, a.name, a.html_content, a.description, a.password from a28_action a 
+	$rq = "select a.id, a.name, a.html_content, a.description, a.password 
+			from a28_action a 
 			join a28_action_event b on b.action_id = a.id
 			where b.event_id = ".$_GET['eid']." and a.service_id = $service_id
-			
+			group by b.event_id, a.service_id, b.action_id
 			";
 	$result = $db->select($rq);
 

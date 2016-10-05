@@ -15,26 +15,28 @@ if(isset($_POST['create_user']))
 			VALUES ('".mysqli_real_escape_string($mysqli, $_POST['nom'])."',
 					'".mysqli_real_escape_string($mysqli, $_POST['prenom'])."',
 					'".mysqli_real_escape_string($mysqli, $_POST['login'])."',
-					'".a28crypt($mysqli, $_POST['password'])."',
+					'".a28crypt( $_POST['password'])."',
 					'".mysqli_real_escape_string($mysqli, $_POST['active'])."',
 					'".mysqli_real_escape_string($mysqli, $_POST['service'])."',
 					'".mysqli_real_escape_string($mysqli, $_POST['manager'])."',
 					0)";
-	$mysqli->close();
+	//$mysqli->close();
 	$db->query($rq);
 }
 
 if(isset($_POST['update_user']))
 {
 	// gestion du mot de passe si vide, on ne fait rien, sinon, on encrypte
-	$password = strlen($_POST['password']?a28crypt($mysqli, $_POST['password']):"");
+	$password = (strlen($_POST['password'])?a28crypt( $_POST['password']):"");
 	$rq = "update a28_user set nom='".$_POST['nom']."', prenom='".$_POST['prenom']."', 
-			log='".$_POST['login']."', actif='".$_POST['actif']."', service_id=".$_POST['service'].", 
-					leader='".$_POST['manager']."' where id=".$_POST['udpate_user'];
+			log='".$_POST['login']."', actif='".$_POST['active']."', service_id=".$_POST['service'].", 
+					leader='".$_POST['manager']."' where id=".$_POST['update_user'];
+	
+	
 	$db->query($rq);
 	if(strlen($password))
 	{
-		$rq = "update a28_user set password='$password' where id=".$_POST['udpate_user'];
+		$rq = "update a28_user set pass='$password' where id=".$_POST['update_user'];
 		$db->query($rq);
 	}
 	echo "<h1>L'enregistrement a été correctement modifié</h1>";

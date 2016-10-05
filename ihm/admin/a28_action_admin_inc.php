@@ -5,6 +5,8 @@ if('a28_action_admin_inc.php'==$_SERVER['PHP_SELF']){
 	header('location:index.php?e=6');
 }
 
+
+
 // on affiche la liste des évènements survenus et encore utilisables par décroissance inverse
 $db = new dbAccess();
 $rq = "select * from a28_event where enabled = '1'";
