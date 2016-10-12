@@ -14,7 +14,7 @@ class EventManager {
 	 */
 	public function getNewUserActions() {
 		// On récupère les événements en bdd
-		$res = $db->query ( "SELECT * from `a28_user_action` ;" );
+		$res = $this->db->query ( "SELECT * from `a28_user_action` ;" );
 
 		$user_actions = array ();
 
@@ -29,7 +29,7 @@ class EventManager {
 	 * Récupération des événements terminés
 	 */
 	public function getOutdatedEvents() {
-		$res = $db->query ( "SELECT a28_event.id from a28_event JOIN a28_act ON a28_event.act_id = a28_act.id WHERE TIMESTAMPDIFF(MINUTE, a28_act_start_on, a28_event.start_on) > a28_event.duration ;" );
+		$res = $this->db->query ( "SELECT a28_event.id from a28_event JOIN a28_act ON a28_event.act_id = a28_act.id WHERE TIMESTAMPDIFF(MINUTE, a28_act_start_on, a28_event.start_on) > a28_event.duration ;" );
 
 		$event_ids = array ();
 
