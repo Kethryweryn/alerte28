@@ -33,7 +33,7 @@ class dbAccess {
 				. $mysqli->connect_error);}
 		return $mysqli;
 	}
-	
+
 	/**
 	 * renvoie l'objet mysqli
 	 */
@@ -51,7 +51,7 @@ class dbAccess {
 	public function query($rq) {
 		return $this->mysqli->query($rq);
 	}
-	
+
 	/**
 	 * Prépare une requête bdd
 	 * @param string $rq
@@ -86,5 +86,10 @@ class dbAccess {
 
 	public function rollback() {
 		$this->query("ROLLBACK;");
+	}
+
+	public function error()
+	{
+		return $this->mysqli->error;
 	}
 }
