@@ -7,7 +7,7 @@ class EventManager {
 	 * @param unknown $db_access
 	 */
 	public function __construct($db_access) {
-		$this->$db = $db_access;
+		$this->db = $db_access;
 	}
 	/**
 	 * Récupération des actions joueurs
