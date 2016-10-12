@@ -34,6 +34,9 @@ class EventSolver {
 		$rq .= " ;";
 
 		$stmt = $this->db->prepare ( $rq );
+
+		var_dump($stmt);
+
 		if ($user_action->action_id)
 			$stmt->bind_param ( "ii", $user_action->event_id, $user_action->action_id );
 		else
