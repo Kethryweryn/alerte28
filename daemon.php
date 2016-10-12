@@ -1,5 +1,8 @@
 <?php
 require_once 'dbAccess.php';
+require_once 'Moteur\event_manager.php';
+require_once 'Moteur\event_solver.php';
+require_once 'Moteur\user_action.php';
 
 // Connexion bdd
 $db_access = new dbAccess ();
