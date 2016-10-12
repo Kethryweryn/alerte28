@@ -16,7 +16,7 @@ $event_solver = new EventSolver ( $db_access );
 while ( 1 ) {
 	try {
 		// On commence une transaction
-		$dbAccess->begin ();
+		$db_access->begin ();
 
 		// Lecture en bdd voir si de nouveaux changements sont là
 		// Puis on gère ces événements
@@ -29,12 +29,12 @@ while ( 1 ) {
 		}
 
 		// On truncate la table des user actions
-		$dbAccess->query ( "TRUNCATE TABLE a28_user_action ;" );
+		$db_access->query ( "TRUNCATE TABLE a28_user_action ;" );
 
 		// On commit la transaction
-		$dbAccess->commit ();
+		$db_access->commit ();
 	} catch ( Exception $e ) {
-		$dbAccess->rollback ();
+		$db_access->rollback ();
 	}
 
 	// Gestion des événements à durée limitée
