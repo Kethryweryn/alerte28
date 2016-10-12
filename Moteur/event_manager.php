@@ -29,7 +29,7 @@ class EventManager {
 	 * Récupération des événements terminés
 	 */
 	public function getOutdatedEvents() {
-		$res = $this->db->query ( "SELECT a28_event.id from a28_event JOIN a28_act ON a28_event.act_id = a28_act.id WHERE TIMESTAMPDIFF(MINUTE, a28_act_start_on, a28_event.start_on) > a28_event.duration ;" );
+		$res = $this->db->query ( "SELECT a28_event.id from a28_event JOIN a28_act ON a28_event.act_id = a28_act.id WHERE a28_event.enabled = 1 AND TIMESTAMPDIFF(MINUTE, a28_act.start_on, a28_event.start_on) > a28_event.duration ;" );
 
 		var_dump($this->db->error());
 
