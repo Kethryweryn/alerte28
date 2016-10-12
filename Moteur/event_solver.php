@@ -28,10 +28,9 @@ class EventSolver {
 		// (Note : action_id peut être NULL si c'est la résolution par défaut)
 		$rq = "SELECT impact, counter_id, end_event, next_event_id from `a28_action_event` WHERE event_id = ?";
 		if ($user_action->action_id)
-			$rq .= "AND action_id = ?";
+			$rq .= " AND action_id = ?";
 		else
-			$rq .= "AND action_id IS NULL";
-		$rq .= " ;";
+			$rq .= " AND action_id IS NULL";
 
 		$stmt = $this->db->prepare ( $rq );
 
