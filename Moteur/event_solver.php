@@ -41,6 +41,8 @@ class EventSolver {
 			$stmt->bind_param ( "ii", $user_action->event_id, $user_action->action_id );
 		else
 			$stmt->bind_param ( "i", $user_action->event_id );
+		
+		$stmt->execute();
 
 		$stmt->bind_result ( $impact, $counter_id, $end_event, $next_event_id );
 
@@ -68,11 +70,14 @@ class EventSolver {
 				$stmt_next_event->execute ();
 			}
 		}
+		
+		$stmt->close();
 
 		// On sauvegarde l'historique
 		$stmt_history = $this->db->prepare ( "INSERT INTO a28_action_history(service_id, user_id, action_id, action_on) VALUES (?, ?, ?, NOW())" );
 		$stmt_history->bind_param ( "iii", $user_action->service_id, $user_action->user_id, $user_action->action_id );
 		$stmt_history->execute ();
+		$stmt_history->close();
 	}
 
 	/**
