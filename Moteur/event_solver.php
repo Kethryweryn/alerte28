@@ -50,6 +50,7 @@ class EventSolver {
 				$stmt_counter->execute ();
 			}
 			if ($end_event) {
+				echo "fin de l'event".$user_action->event_id."\n";
 				$rq_event = "UPDATE a28_event SET enabled = FALSE WHERE id = ? ;";
 				$stmt_event = $this->db->prepare ( $rq_event );
 				$stmt_event->bind_param ( "i", $user_action->event_id );
