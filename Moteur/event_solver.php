@@ -43,12 +43,14 @@ class EventSolver {
 
 		while ( $stmt->fetch () ) {
 			// On résout ce que fait l'action
+			echo "l'action fait un truc !";
 			if ($counter_id) {
 				$rq_counter = "INSERT INTO a28_counters(counter_ref_id, event_on, value) VALUES(?, NOW(), ?) ;";
 				$stmt_counter = $this->db->prepare ( $rq_counter );
 				$stmt_counter->bind_param ( "id", $counter_id, $impact );
 				$stmt_counter->execute ();
 			}
+			echo "end_event : $end_event";
 			if ($end_event) {
 				echo "fin de l'event".$user_action->event_id."\n";
 				$rq_event = "UPDATE a28_event SET enabled = FALSE WHERE id = ? ;";
