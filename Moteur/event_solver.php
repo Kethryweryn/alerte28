@@ -48,7 +48,7 @@ class EventSolver {
 			if ($counter_id) {
 				$rq_counter = "INSERT INTO a28_counters(counter_ref_id, event_on, value) VALUES(?, NOW(), ?)";
 				$stmt_counter = $this->db->prepare ( $rq_counter );
-				echo $stmt_counter->error();
+				echo $this->db->error();
 				$stmt_counter->bind_param ( "id", $counter_id, $impact );
 				$stmt_counter->execute ();
 				$stmt_counter->close();
