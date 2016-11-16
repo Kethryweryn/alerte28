@@ -40,6 +40,8 @@ class EventSolver {
 			$stmt->bind_param ( "i", $user_action->event_id );
 		
 		$stmt->execute();
+		
+		$stmt->store_result();
 
 		$stmt->bind_result ( $impact, $counter_id, $end_event, $next_event_id );
 
