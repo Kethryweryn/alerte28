@@ -31,9 +31,6 @@ class EventSolver {
 			$rq .= " AND action_id = ?";
 		else
 			$rq .= " AND action_id IS NULL";
-		
-		echo $rq."\n";
-		echo $user_action->event_id." ".$user_action->action_id."\n";
 
 		$stmt = $this->db->prepare ( $rq );
 
@@ -48,26 +45,27 @@ class EventSolver {
 
 		while ( $stmt->fetch () ) {
 			// On résout ce que fait l'action
-			echo "l'action fait un truc !"."\n";
 			if ($counter_id) {
-				$rq_counter = "INSERT INTO a28_counters(counter_ref_id, event_on, value) VALUES(?, NOW(), ?) ;";
+				$rq_counter = "INSERT INTO a28_counters(counter_ref_id, event_on, value) VALUES(?, NOW(), ?)";
 				$stmt_counter = $this->db->prepare ( $rq_counter );
+				echo $stmt_counter->error();
 				$stmt_counter->bind_param ( "id", $counter_id, $impact );
 				$stmt_counter->execute ();
+				$stmt_counter->close();
 			}
-			echo "end_event : $end_event"."\n";
 			if ($end_event) {
-				echo "fin de l'event".$user_action->event_id."\n";
 				$rq_event = "UPDATE a28_event SET enabled = FALSE WHERE id = ? ;";
 				$stmt_event = $this->db->prepare ( $rq_event );
 				$stmt_event->bind_param ( "i", $user_action->event_id );
 				$stmt_event->execute ();
+				$stmt_event->close();
 			}
 			if ($next_event_id) {
 				$rq_next_event = "UPDATE a28_event SET enabled = TRUE, start_on = NOW() WHERE id = ? ;";
 				$stmt_next_event = $this->db->prepare ( $rq_next_event );
 				$stmt_next_event->bind_param ( "i", $next_event_id );
 				$stmt_next_event->execute ();
+				$stmt_next_event->close();
 			}
 		}
 		
