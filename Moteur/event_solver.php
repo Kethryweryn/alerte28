@@ -33,6 +33,7 @@ class EventSolver {
 			$rq .= " AND action_id IS NULL";
 		
 		echo $rq."\n";
+		echo $user_action->event_id." ".$user_action->action_id."\n";
 
 		$stmt = $this->db->prepare ( $rq );
 
