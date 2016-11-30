@@ -1,0 +1,1 @@
+ALTER TABLE `a28_event` CHANGE `description` `description` VARCHAR( 140 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ;
