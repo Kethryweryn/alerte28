@@ -1,5 +1,4 @@
 <?php
-require_once "../Twitter/TwitterConnect.php";
 
 class EventSolver {
 	private $db;
