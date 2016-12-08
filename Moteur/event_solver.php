@@ -67,7 +67,7 @@ class EventSolver {
 				$stmt_get_next_event = $this->db->prepare ( $rq_get_next_event );
 				$stmt_get_next_event->bind_param ( "i", $next_event_id );
 				$stmt_get_next_event->execute ();
-				$stmt_get_next_event->bind_result($description);
+				$stmt_get_next_event->bind_result($description, $enabled);
 				$stmt_get_next_event->fetch();
 				
 				if ($description != "" && !$enabled)
