@@ -1,5 +1,4 @@
 <?php
-
 class EventSolver {
 	private $db;
 	/**
