@@ -9,24 +9,53 @@ if(!empty($_POST))
 {
 	// nettoyage de toutes les données d'impact
 	$rq = "delete from a28_action_event where event_id = ".$_GET['eid'];
-	
 	$db->query($rq);
 	foreach($_POST as $val => $impact)
 	{
+		if(substr($val,0,4) == 'play')
+		{
+			if(strlen($impact))
+			{
+				$rq = "insert into a28_action_event (action_id, event_id,player_description, impact, counter_id, end_event) 
+						VALUES (".
+						$array[2].", ".
+						$_GET['eid'].", '".
+						$impact."', ".
+						"0,0, false)";
+						$db->query($rq);
+						
+			}
+		}
+		elseif(substr($val,0,4) == 'twit')
+		{
+			if(strlen($impact))
 		
+			{
+				$rq = "insert into a28_action_event (action_id, event_id,twitter_description, impact, counter_id, end_event) 
+						VALUES (".
+						$array[2].", ".
+						$_GET['eid'].", '".
+						$impact."', ".
+						"0,0, false)";
+						$db->query($rq);
+			}
+		}
+		else 
+		{
 		$array = explode("_", $val);
 		if(!empty($impact))
 			if($array[0] == "tex")
 			{
 				// on peut faire l'insert
-				$rq = "insert into a28_action_event (action_id, event_id, impact, counter_id, end_event) VALUES (".
+				$rq = "insert into a28_action_event (action_id, event_id, impact, counter_id, end_event) 
+						VALUES (".
 						$array[2].", ".
 						$_GET['eid'].", ".
 						$impact.", ".
 						$_POST['sel_'.$array[1]."_".$array[2]].", false)";
-				
-				$db->query($rq);
+						
 			}
+		}
 	}
 }
 
@@ -66,7 +95,7 @@ function fillSelect($name, $val)
 $service = 0;
 foreach( $result as $action)
 {
-	$rq = "select counter_id, impact from a28_action_event where  action_id=".$action->action_id." and event_id=".$_GET['eid'];
+	$rq = "select counter_id, impact, twitter_description, player_description from a28_action_event where  action_id=".$action->action_id." and event_id=".$_GET['eid'];
 	$impacts = $db->select($rq);
 	// QUE C'EST CRAAAADE !!!
 	$val_a = '';
@@ -75,6 +104,11 @@ foreach( $result as $action)
 	$sel_a = 1;
 	$sel_b = 1;
 	$sel_c = 1;
+	$twitt = '';
+	
+	$player_desc = '';
+	
+	
 	
 	if(count($impacts))
 	{
@@ -84,16 +118,28 @@ foreach( $result as $action)
 			{
 				$val_a = $impact->impact;
 				$sel_a = $impact->counter_id;
+				
 			}
 			elseif($val_b == '')
 			{
 				$val_b = $impact->impact;
 				$sel_b = $impact->counter_id;
+				
 			}
-			else
+			elseif($val_c == '')
 			{
 				$val_c = $impact->impact;
 				$sel_c = $impact->counter_id;
+				
+			}
+			elseif($twitt == '') 
+			{
+				$twitt = $impact->twitter_description;
+			}
+			else 
+			{
+				$player_desc = $impact->player_description;
+				
 			}
 		}
 	}
@@ -118,7 +164,9 @@ foreach( $result as $action)
 				<input name=tex_b_".$action->action_id." value='".$val_b."' type=text></div><div>".
 				fillSelect('sel_c_'.$action->action_id, $sel_c)."
 				<input name=tex_c_".$action->action_id." value='".$val_c."' type=text>
-			</div>
+				<label for='twitt'>Twitter</label> <textarea rown=4 cols=42 name=twitt_".$action->action_id." id='twitt'  >$twitt</textarea>
+				<label for='desc'>Description</label><textarea rown=4 cols=42 name=player_desc_".$action->action_id." id='desc'  >$player_desc</textarea>
+		</div>
 			</fieldset>";
 	
 }
