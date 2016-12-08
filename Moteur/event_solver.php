@@ -62,11 +62,31 @@ class EventSolver {
 				$stmt_event->close();
 			}
 			if ($next_event_id) {
-				$rq_next_event = "UPDATE a28_event SET enabled = TRUE, start_on = NOW() WHERE id = ? ;";
-				$stmt_next_event = $this->db->prepare ( $rq_next_event );
-				$stmt_next_event->bind_param ( "i", $next_event_id );
-				$stmt_next_event->execute ();
-				$stmt_next_event->close();
+				// On récupère l'event pour éventuellement utiliser l'API twitter
+				$rq_get_next_event = "SELECT description, enabled FROM a28_event WHERE a28_event.id = ? ;";
+				$stmt_get_next_event = $this->db->prepare ( $rq_get_next_event );
+				$stmt_get_next_event->bind_param ( "i", $next_event_id );
+				$stmt_get_next_event->execute ();
+				$stmt_get_next_event->bind_result($description, $enabled);
+				$stmt_get_next_event->fetch();
+				
+				if ($description != "" && !$enabled)
+				{
+					// On appelle l'API twitter
+					$twitter = new TwitterConnect();
+ 					$twitter->postTweet($description);
+				}
+				
+				$stmt_get_next_event->close();
+				
+				if (!$enabled)
+				{
+					$rq_next_event = "UPDATE a28_event SET enabled = TRUE, start_on = NOW() WHERE id = ? ;";
+					$stmt_next_event = $this->db->prepare ( $rq_next_event );
+					$stmt_next_event->bind_param ( "i", $next_event_id );
+					$stmt_next_event->execute ();
+					$stmt_next_event->close();
+				}
 			}
 		}
 		
