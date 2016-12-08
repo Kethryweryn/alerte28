@@ -3,6 +3,7 @@ require_once 'dbAccess.php';
 require_once 'Moteur/event_manager.php';
 require_once 'Moteur/event_solver.php';
 require_once 'Moteur/user_action.php';
+require_once 'Twitter/TwitterConnect.php';
 
 // Connexion bdd
 $db_access = new dbAccess ();
