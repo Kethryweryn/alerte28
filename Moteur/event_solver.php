@@ -26,7 +26,7 @@ class EventSolver {
 
 		// On récupère la liste des action_event en fonction d'action_id et event_id
 		// (Note : action_id peut être NULL si c'est la résolution par défaut)
-		$rq = "SELECT impact, counter_id, end_event, next_event_id from `a28_action_event` WHERE event_id = ?";
+		$rq = "SELECT impact, counter_id, end_event, next_event_id, twitter_description from `a28_action_event` WHERE event_id = ?";
 		if ($user_action->action_id)
 			$rq .= " AND action_id = ?";
 		else
@@ -43,7 +43,7 @@ class EventSolver {
 		
 		$stmt->store_result();
 
-		$stmt->bind_result ( $impact, $counter_id, $end_event, $next_event_id );
+		$stmt->bind_result ( $impact, $counter_id, $end_event, $next_event_id, $twitter_description );
 
 		while ( $stmt->fetch () ) {
 			// On résout ce que fait l'action
@@ -61,6 +61,14 @@ class EventSolver {
 				$stmt_event->execute ();
 				$stmt_event->close();
 			}
+
+			if ($twitter_description)
+			{
+				// On appelle l'API twitter
+				$twitter = new TwitterConnect();
+ 				$twitter->postTweet($twitter_description);
+			}
+			
 			if ($next_event_id) {
 				// On récupère l'event pour éventuellement utiliser l'API twitter
 				$rq_get_next_event = "SELECT description, enabled FROM a28_event WHERE a28_event.id = ? ;";
