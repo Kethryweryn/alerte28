@@ -14,7 +14,7 @@
 if($_SESSION['is_admin'] == 1)
 {
 	echo '				<a href="gestion.php?page=a28_action_admin">Administration des actions</a>';
-echo '<a href="gestion.php?page=a28_service">Service</a> <br />
+echo '<br /><a href="gestion.php?page=a28_service">Service</a> <br />
 				';
 }				
 ?>

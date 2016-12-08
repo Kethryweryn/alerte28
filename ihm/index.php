@@ -139,10 +139,15 @@ blockquote.twitter-tweet a:focus {
       </div>
     </div>
   </div>
-	
-		<div id="login-form">
-			<div class="box-inner">
-				<img src="img/logo_ciub.jpg" id="logo" alt="Logo CIUB" border="0" width="128" />
+	<div class="row" >
+      <div class="col-sm-6">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Interface : Connexion
+          </div>
+          <div class="chart-stage">
+            <div id="grid-1-1">
+              <img src="img/logo_ciub.jpg" id="logo" alt="Logo CIUB" border="0" width="128" />
 
 				<?php
 				if(isset($_GET['e']) && isset($_GET['page']))
@@ -164,13 +169,25 @@ blockquote.twitter-tweet a:focus {
 									<label for="rcmloginpwd">Mot de passe</label>
 								</td>
 								<td class="input">
-									<input name="_pass" id="rcmloginpwd" size="40" autocapitalize="off" autocomplete="off" type="password" class="enter_password">
+									<input name="_pass" id="rcmloginpwd" size="40" 
+									autocapitalize="off" autocomplete="off" type="password" >
 								</td>
 							</tr>
 						</tbody>
 					</table>
-					<p class="formbuttons"><input class="button mainaction" value="" type="submit"></p>
+					<input value="Connexion" type="submit">
 			</form>	
+            </div>
+          </div>
+          <div class="chart-notes">
+            CIUB All rights reserved
+          </div>
+        </div>
+      </div>
+     </div>
+		<div id="login-form">
+			
+				
 		</div>
 		<div class="box-bottom">
 		</div>

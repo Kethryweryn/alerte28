@@ -139,8 +139,25 @@ blockquote.twitter-tweet a:focus {
       </div>
     </div>
   </div>		
-  		<div id="content-form">
-			<div class="box-inner">
+  <div class="row" >
+      <div class="col-sm-8">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Interface : 
+            <?php 
+            if(isset($_GET['page']))
+            {
+            	$page = $_GET['page'];
+            	$page = substr($page, 4);
+            	echo ucfirst($page);
+            }
+            else 
+            	echo "Accueil";
+            ?>
+          </div>
+          <div class="chart-stage">
+            <div id="grid-1-1">
+  		
 				<div>
 					<a href="gestion.php">
 						<img src="../img/logo_ciub.jpg" id="logo" alt="Logo CIUB" border="0" width="128" />
@@ -165,8 +182,12 @@ blockquote.twitter-tweet a:focus {
 					require_once($page);
 				?>
 			</div>
-		</div>
-		<div class="box-bottom">
-		</div>
+          </div>
+          <div class="chart-notes">
+            CIUB All rights reserved
+          </div>
+        </div>
+      </div>
+     </div>
 	</body>
 </html>
