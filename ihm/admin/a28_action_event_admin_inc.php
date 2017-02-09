@@ -7,6 +7,7 @@ if('a28_action_event_admin_inc.php'==$_SERVER['PHP_SELF']){
 $db = new dbAccess();
 if(!empty($_POST))
 {
+	print_r($_POST);
 	// nettoyage de toutes les données d'impact
 	$rq = "delete from a28_action_event where event_id = ".$_GET['eid'];
 	$db->query($rq);
@@ -39,6 +40,10 @@ if(!empty($_POST))
 						"0,0, false)";
 						$db->query($rq);
 			}
+		}
+		elseif(substr($val,0,4)=='end_')
+		{
+			
 		}
 		else 
 		{
@@ -95,7 +100,7 @@ function fillSelect($name, $val)
 $service = 0;
 foreach( $result as $action)
 {
-	$rq = "select counter_id, impact, twitter_description, player_description from a28_action_event where  action_id=".$action->action_id." and event_id=".$_GET['eid'];
+	$rq = "select counter_id, impact, twitter_description, player_description, end_event from a28_action_event where  action_id=".$action->action_id." and event_id=".$_GET['eid'];
 	$impacts = $db->select($rq);
 	// QUE C'EST CRAAAADE !!!
 	$val_a = '';
@@ -107,6 +112,7 @@ foreach( $result as $action)
 	$twitt = '';
 	
 	$player_desc = '';
+	$end_event = '';
 	
 	
 	
@@ -136,10 +142,14 @@ foreach( $result as $action)
 			{
 				$twitt = $impact->twitter_description;
 			}
-			else 
+			elseif($player_desc == '') 
 			{
 				$player_desc = $impact->player_description;
 				
+			}
+			else 
+			{
+				$end_event = $impact->end_event;
 			}
 		}
 	}
@@ -164,9 +174,10 @@ foreach( $result as $action)
 				<input name=tex_b_".$action->action_id." value='".$val_b."' type=text></div><div>".
 				fillSelect('sel_c_'.$action->action_id, $sel_c)."
 				<input name=tex_c_".$action->action_id." value='".$val_c."' type=text>
-				<label for='twitt'>Twitter</label> <textarea rown=4 cols=42 name=twitt_".$action->action_id." id='twitt'  >$twitt</textarea>
-				<label for='desc'>Description</label><textarea rown=4 cols=42 name=player_desc_".$action->action_id." id='desc'  >$player_desc</textarea>
-		</div>
+				<label for='twitt'>Twitter</label> <textarea rows=4 cols=42 name=twitt_".$action->action_id." id='twitt'  >$twitt</textarea>
+				<label for='desc'>Description</label><textarea rows=4 cols=42 name=player_desc_".$action->action_id." id='desc'  >$player_desc</textarea>
+				<br /><input type='checkbox' name=end_event_".$action->action_id."   >Action de fin ?
+				</div>
 			</fieldset>";
 	
 }

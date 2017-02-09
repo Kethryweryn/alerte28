@@ -9,9 +9,8 @@ if('a28_action_admin_inc.php'==$_SERVER['PHP_SELF']){
 
 // on affiche la liste des évènements survenus et encore utilisables par décroissance inverse
 $db = new dbAccess();
-$rq = "select * from a28_event where enabled = '1'";
+$rq = "select * from a28_event";
 $event_list = $db->select($rq);
-
 // Gestion  de la création d'action sur event
 if(isset($_POST['send_order']))
 {
@@ -27,9 +26,24 @@ if(isset($_POST['send_order']))
 			VALUES (".$_SESSION['id'].", ".$action_id.", ".$_POST['send_order'].")";
 	$db->query($rq); 
 }
+
+if(isset($_POST['create_event']))
+{
+	$duration = 0;
+	if($_POST['duration']>0)
+		$duration = $_POST['duration'];	
+	$rq = "INSERT INTO `CIUB_Interface`.`a28_event` (`id`, `name`, `duration`, `enabled`, `description`, `start_on`) 
+			VALUES 
+			(NULL, '".str_replace('\'', '\\\'', $_POST['name'])."', '".$duration."', '0', '".str_replace('\'', '\\\'',$_POST['description'])."', NULL);";
+	$db->query($rq);
+
+}
 ?>
 
 <h1>Liste des Evènements</h1>
+<form method=POST action="gestion.php?page=a28_event_creation">
+<input type=submit value="Créer un évènement">
+</form>
 	<?php
 		/*$sTableau=$oServices->liste_tableau($oServices->req, 'a28_service', 'border="1"');
 		echo $sTableau;*/
