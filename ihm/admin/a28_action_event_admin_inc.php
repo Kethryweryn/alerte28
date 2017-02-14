@@ -7,7 +7,6 @@ if('a28_action_event_admin_inc.php'==$_SERVER['PHP_SELF']){
 $db = new dbAccess();
 if(!empty($_POST))
 {
-	print_r($_POST);
 	// nettoyage de toutes les données d'impact
 	$rq = "delete from a28_action_event where event_id = ".$_GET['eid'];
 	$db->query($rq);
@@ -43,6 +42,12 @@ if(!empty($_POST))
 		}
 		elseif(substr($val,0,4)=='end_')
 		{
+			// TODO ajouter le concept d'event de fin
+			$rq = "insert into a28_action_event (action_id, event_id, impact, counter_id, end_event) 
+						VALUES (".
+						$array[2].", ".
+						$_GET['eid'].", 0, 0, true)";
+			$db->query($rq);
 			
 		}
 		else 
@@ -58,6 +63,7 @@ if(!empty($_POST))
 						$_GET['eid'].", ".
 						$impact.", ".
 						$_POST['sel_'.$array[1]."_".$array[2]].", false)";
+				$db->query($rq);
 						
 			}
 		}
@@ -138,22 +144,21 @@ foreach( $result as $action)
 				$sel_c = $impact->counter_id;
 				
 			}
-			elseif($twitt == '') 
+			if($twitt == '' && $impact->twitter_description != '') 
 			{
 				$twitt = $impact->twitter_description;
 			}
-			elseif($player_desc == '') 
+			if($player_desc == ''&& $impact->player_description != '') 
 			{
 				$player_desc = $impact->player_description;
 				
 			}
-			else 
+			if($end_event == '' && $impact->end_event != 0) 
 			{
-				$end_event = $impact->end_event;
+				$end_event = "checked";
 			}
 		}
 	}
-	
 	if($action->service_id != $service)
 	{
 		if($service != 0)
@@ -176,7 +181,7 @@ foreach( $result as $action)
 				<input name=tex_c_".$action->action_id." value='".$val_c."' type=text>
 				<label for='twitt'>Twitter</label> <textarea rows=4 cols=42 name=twitt_".$action->action_id." id='twitt'  >$twitt</textarea>
 				<label for='desc'>Description</label><textarea rows=4 cols=42 name=player_desc_".$action->action_id." id='desc'  >$player_desc</textarea>
-				<br /><input type='checkbox' name=end_event_".$action->action_id."   >Action de fin ?
+				<br /><input type='checkbox' name=end_event_".$action->action_id." $end_event  >Action de fin ?
 				</div>
 			</fieldset>";
 	
