@@ -107,7 +107,7 @@ blockquote.twitter-tweet a:focus {
 }
   </style>
 		<link rel="stylesheet" type="text/css" href="../login_fichiers/styles.css">
-		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
  
