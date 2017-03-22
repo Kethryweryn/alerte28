@@ -49,6 +49,8 @@ class dbAccess {
 	 */
 
 	public function query($rq) {
+		$this->mysqli->set_charset("utf8");
+		$this->mysqli->query("SET NAMES utf8");
 		return $this->mysqli->query($rq);
 	}
 
