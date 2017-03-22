@@ -67,6 +67,7 @@ class dbAccess {
 	 * @return array[object]
 	 */
 	public function select($rq) {
+		$this->mysqli->set_charset("utf8");
 		$ret = $this->query($rq);
 		$array_ret = array();
 
