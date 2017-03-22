@@ -42,7 +42,6 @@ if(!empty($_POST))
 		}
 		elseif(substr($val,0,4)=='end_')
 		{
-			// TODO ajouter le concept d'event de fin
 			$rq = "insert into a28_action_event (action_id, event_id, impact, counter_id, end_event) 
 						VALUES (".
 						$array[2].", ".
@@ -99,6 +98,15 @@ function fillSelect($name, $val)
 }
 ?>
 <a href="gestion.php?page=a28_action_admin">Retour à la liste des events</a>
+<?php 
+$rq = "select name, description from a28_event where id = ".$_GET['eid'];
+$res = db_select($rq);
+foreach ($res as $k)
+{
+	echo "<br />". $k->name ."<br />" . $k->description ."<br />";
+}
+?>
+
 <form method=POST action="gestion.php?page=a28_action_event_admin&eid=<?php echo $_GET['eid']; ?>"> 
 <?php 
 // on récupère les valeurs des edit boxes
