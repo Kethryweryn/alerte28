@@ -100,7 +100,7 @@ function fillSelect($name, $val)
 <a href="gestion.php?page=a28_action_admin">Retour à la liste des events</a>
 <?php 
 $rq = "select name, description from a28_event where id = ".$_GET['eid'];
-$res = db_select($rq);
+$res = $db->select($rq);
 foreach ($res as $k)
 {
 	echo "<br />". $k->name ."<br />" . $k->description ."<br />";
