@@ -75,8 +75,8 @@ $user_list = $db->select($rq);
 
 foreach($user_list as $user)
 {
-	$array_result[] = "[". $user->id.",'". $user->prenom."','". $user->nom
-			."','" .$user->nom_service. "', '<a href=gestion.php?page=a28_user_add&uid=".$user->id."><img src=\'../img/wan_pencil.png\' height=25/></a>']";
+	$array_result[] = "[". $user->id.",'". mysqli_real_escape_string($db->getMysqli(),$user->prenom)."','". mysqli_real_escape_string($db->getMysqli(),$user->nom)
+			."','" .mysqli_real_escape_string($db->getMysqli(),$user->nom_service). "', '<a href=gestion.php?page=a28_user_add&uid=".$user->id."><img src=\'../img/wan_pencil.png\' height=25/></a>']";
 }
 echo implode(",", $array_result);
 
