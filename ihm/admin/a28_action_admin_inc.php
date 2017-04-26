@@ -42,9 +42,7 @@ if(isset($_POST['create_event']))
 
 <h1>Liste des Evènements</h1>
 <a href="gestion.php?page=a28_event_creation">Ajouter un évènement</a>
-<form method=POST action="gestion.php?page=a28_event_creation">
-<input type=submit value="Créer un évènement">
-</form>
+
 	<?php
 		/*$sTableau=$oServices->liste_tableau($oServices->req, 'a28_service', 'border="1"');
 		echo $sTableau;*/

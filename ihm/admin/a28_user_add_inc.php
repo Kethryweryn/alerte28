@@ -32,11 +32,11 @@ if(isset($_GET['uid']))
 
 	<div>
 		<label for="nom">Nom : </label>
-		<input type="text" name="nom" value='<?php echo utf8_encode($nom);?>'>
+		<input type="text" name="nom" value='<?php echo ($nom);?>'>
 	</div>
 	<div>
 	<label for="prenom">Prénom : </label>
-	<input type="text" name="prenom" value='<?php echo utf8_encode($prenom);?>'>
+	<input type="text" name="prenom" value='<?php echo ($prenom);?>'>
 	</div>
 	
 	<div>

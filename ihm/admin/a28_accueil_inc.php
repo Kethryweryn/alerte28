@@ -1,6 +1,6 @@
 
 
-			Bienvenue <?php echo(utf8_encode($_SESSION['full_name'])); ?><br />
+			Bienvenue <?php echo($_SESSION['full_name']); ?><br />
 			<?php 
 			if($_SESSION['leader'] == 1)
 			{

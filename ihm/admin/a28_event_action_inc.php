@@ -129,11 +129,11 @@ function loadTable($db, $oActions)
 		
 		foreach($oActions as $action)
 		{
-			$array_result[] = "['".utf8_encode(mysqli_real_escape_string($db->getMysqli(),$action->name))."',
+			$array_result[] = "['".(mysqli_real_escape_string($db->getMysqli(),$action->name))."',
 					'".mysqli_real_escape_string($db->getMysqli(),$action->log)."',
 					'".mysqli_real_escape_string($db->getMysqli(),$action->service_name)."', 
 					'".$action->action_on."', 
-					'".utf8_encode(mysqli_real_escape_string($db->getMysqli(),$action->action_name))."']";
+					'".(mysqli_real_escape_string($db->getMysqli(),$action->action_name))."']";
 		}
 		echo implode(",", $array_result);
 		?>
