@@ -94,5 +94,5 @@ echo implode(",", $array_result);
 
 
 	<p class="formbuttons">
-	<input class="button mainaction" value="Ajouter un utilisateur" type="submit" onclick="window.location='gestion.php?page=a28_user_add';"></p>
 	
+	<a href= value="gestion.php?page=a28_user_add">Ajouter un utilisateur</a>
