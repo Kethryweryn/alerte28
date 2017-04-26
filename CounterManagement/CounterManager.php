@@ -57,7 +57,7 @@ class CounterManager
 	 	$sec_diff = strtotime($end_date) - strtotime($start_date);
 	 	$spots_number = floor($sec_diff / 600);
 	 	$spots = array();
-	 	for($i = 0;$i<max($spots_number, 15);$i++)
+	 	for($i = 0;$i<min($spots_number, 100);$i++)
 	 	{
 	 		if(is_null($param))
 	 			$spots[] = $math_func($i);
@@ -85,6 +85,7 @@ class CounterManager
 		$now = new DateTime();
 		$now = $now->format("Y-m-d H:m:s");
 		$cure_array = $this->getCurveSpots($game_start, $now, 'pow', 1);
+		
 	 	foreach($cure_array as $key=>$cure)
 	 	{
 	 		$cure_array[$key] = $cure * 0.005;
