@@ -95,4 +95,4 @@ echo implode(",", $array_result);
 
 	<p class="formbuttons">
 	
-	<a href= value="gestion.php?page=a28_user_add">Ajouter un utilisateur</a>
+	<a href="gestion.php?page=a28_user_add">Ajouter un utilisateur</a>
